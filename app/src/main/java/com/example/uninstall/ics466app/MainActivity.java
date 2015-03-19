@@ -1,5 +1,6 @@
 package com.example.uninstall.ics466app;
 
+import android.content.Intent;
 import android.location.Location;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +14,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.*;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,8 +23,8 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private GoogleApiClient mGoogleApiClient;
-    TextView mLatitudeText, mLongitudeText;
-    Location mLastLocation;
+    private TextView mLatitudeText, mLongitudeText;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,15 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
         buildGoogleApiClient();
         mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
         mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
+
+        Button myAccountButton = (Button) findViewById(R.id.myAccountButton);
+        myAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
+                startActivity(accountPage);
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient(){
