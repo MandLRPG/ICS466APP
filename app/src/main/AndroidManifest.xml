@@ -43,6 +43,10 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateHidden" >
         </activity>
+        <activity
+            android:name=".NewPostActivity"
+            android:label="@string/title_activity_new_post" >
+        </activity>
     </application>
 
 </manifest>

@@ -42,6 +42,15 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
                 startActivity(accountPage);
             }
         });
+
+        Button newPostButton = (Button) findViewById(R.id.newPostButton);
+        newPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newPostPage = new Intent(getApplicationContext(), NewPostActivity.class);
+                startActivity(newPostPage);
+            }
+        });
     }
 
     protected synchronized void buildGoogleApiClient(){

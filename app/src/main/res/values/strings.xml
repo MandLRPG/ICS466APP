@@ -7,5 +7,6 @@
     <string name="title_activity_account_page">AccountPageActivity</string>
     <string name="hint_text">SEARCH...</string>
     <string name="description">DESCRIPTION</string>
+    <string name="title_activity_new_post">NewPostActivity</string>
 
 </resources>
