@@ -1,5 +1,5 @@
 <head>
-<h1>*Name of our mobile app here* mobileapp466</h1>
+<h1>Book Away</h1>
 <h4>Repository for the app being made for the ICS 466 course UH Manoa</h4>
 </head>
 
@@ -7,7 +7,14 @@
 <h2>Top priority at the moment?:</h2> 
 <p>Learning how to build an app by looking at example code or watching tutorials such as <a href="https://www.youtube.com/watch?v=QAbQgLGKd3Y&list=PL6gx4Cwl9DGBsvRxJJOzG4r4k_zLKrnxl">this one</a><br><br>
 Watching all the tutorials adds up to roughly 11.2 hours but I'm pretty sure there are a lot of things that won't help us or that we need to know but isn't in the tutorial.  So hopefully get started on it asap 15 days from today (3/5) until the project's part 2 is due.<br><br>
-Summarizing what we need for part 2, we need walk throughs with pictures of a use-case scenario.  Explain design decisions.  A presentation version of the write-up.  Explain our code and clear instructions on how to get it running.<br><br></p>
+Summarizing what we need for part 2, we need walk throughs with pictures of a use-case scenario.  Explain design decisions.  A presentation version of the write-up.  Explain our code and clear instructions on how to get it running.</p>
+
+<h2>Links to the Google Docs for the project write-ups</h2>
+ <ul>
+  <li><a href = "https://docs.google.com/a/hawaii.edu/document/d/1KklfEsBpbToF_NE2FtfVgoABck_T7l92m9MLhh-L8-s/edit">Write-up #1 for Part 1</a></li>
+  <li><a href="https://docs.google.com/a/hawaii.edu/document/d/1CmgMCEnqhpLFnn211PAfYz08OKsrR859l0dHwodjOWM/edit">Write-up #2 for Part 2</a></li>
+ </ul>
+  
 
 <h2>Upcoming due dates for the project</h2>
 
@@ -30,6 +37,6 @@ Details:
 <h3>Final FULL Project -DUE FRI, May 8</h3>
 Details:
  <ul>
-  <li>Unknown at the moment (lol)</li>
+  <li>Unknown at the moment but definitely the completed app, as well as probably a presentaton on how it works.</li>
  </ul>
 </body>
