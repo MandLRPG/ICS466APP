@@ -9,10 +9,32 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35sp"
         android:text="MY ACCOUNT"
+        android:textStyle="bold"
+        android:textColor="#FF0000"
         android:id="@+id/textView4"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:text="MY LISTINGS"
+        android:textColor="#FF0044"
+        android:id="@+id/listings"
+        android:layout_below="@+id/textView4"
+        android:layout_centerHorizontal="true"/>
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:name="com.example.uninstall.ics466app.BookSearchFragment"
+        android:id="@+id/fragment"
+        android:layout_marginTop="5sp"
+        android:layout_below="@+id/listings"
+        android:layout_centerHorizontal="true"
+        tools:layout="@layout/book_search_fragment" />
 
 </RelativeLayout>

@@ -5,5 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_account_page">AccountPageActivity</string>
+    <string name="hint_text">SEARCH...</string>
+    <string name="description">DESCRIPTION</string>
 
 </resources>
