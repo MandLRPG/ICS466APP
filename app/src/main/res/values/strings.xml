@@ -9,4 +9,10 @@
     <string name="description">DESCRIPTION</string>
     <string name="title_activity_new_post">NewPostActivity</string>
 
+    <string-array name="class_list">
+        <item>ENG</item>
+        <item>HIST</item>
+        <item>ICS</item>
+    </string-array>
+
 </resources>

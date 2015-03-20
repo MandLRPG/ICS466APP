@@ -15,24 +15,19 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.common.api.*;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
-
-    private GoogleApiClient mGoogleApiClient;
-    private TextView mLatitudeText, mLongitudeText;
-    private Location mLastLocation;
+public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        buildGoogleApiClient();
-        mLatitudeText = (TextView) findViewById(R.id.mLatitudeText);
-        mLongitudeText = (TextView) findViewById(R.id.mLongitudeText);
 
         Button myAccountButton = (Button) findViewById(R.id.myAccountButton);
         myAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -51,47 +46,6 @@ public class MainActivity extends ActionBarActivity implements GoogleApiClient.C
                 startActivity(newPostPage);
             }
         });
-    }
-
-    protected synchronized void buildGoogleApiClient(){
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-    }
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        if(true) {
-            mGoogleApiClient.connect();
-        }
-    }
-
-    @Override
-    protected void onStop(){
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    public void onConnected(Bundle connectionHint){
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if(mLastLocation != null){
-            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        //stub
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result){
-        //stub
     }
 
     @Override
