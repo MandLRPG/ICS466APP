@@ -71,7 +71,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         setContentView(R.layout.activity_login);
 
         // Find the Google+ sign in button.
-        mPlusSignInButton = (SignInButton) findViewById(R.id.plus_sign_in_button);
+        mPlusSignInButton = (SignInButton) findViewById(R.id.login_button);
         if (supportsGooglePlayServices()) {
             // Set a listener to connect the user when the G+ button is clicked.
             mPlusSignInButton.setOnClickListener(new OnClickListener() {
@@ -103,7 +103,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignInButton = (Button) findViewById(R.id.login_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +114,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
-        mSignOutButtons = findViewById(R.id.plus_sign_out_buttons);
+        mSignOutButtons = findViewById(R.id.new_user_button);
     }
 
     private void populateAutoComplete() {
@@ -224,14 +224,14 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     @Override
     protected void onPlusClientSignIn() {
         //Set up sign out and disconnect buttons.
-        Button signOutButton = (Button) findViewById(R.id.plus_sign_out_button);
+        Button signOutButton = (Button) findViewById(R.id.new_user_button);
         signOutButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 signOut();
             }
         });
-        Button disconnectButton = (Button) findViewById(R.id.plus_disconnect_button);
+        Button disconnectButton = (Button) findViewById(R.id.forgot_password_button);
         disconnectButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
