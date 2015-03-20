@@ -46,7 +46,7 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="307dp"
                     android:layout_height="wrap_content"
                     android:hint="Email or UserID"
                     android:inputType="textEmailAddress"
