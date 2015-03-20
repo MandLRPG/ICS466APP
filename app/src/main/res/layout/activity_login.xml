@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="BookAway"
+                android:text="BookAway!"
                 android:id="@+id/title"
                 android:layout_gravity="center"
                 android:layout_marginTop="31dp"
@@ -46,9 +46,9 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="307dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Email (.edu)"
+                    android:hint="Email or UserID"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:layout_marginBottom="16dp"
