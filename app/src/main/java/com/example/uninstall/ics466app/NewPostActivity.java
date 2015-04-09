@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
@@ -23,6 +24,23 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
         subjects.setAdapter(myArray);
         subjects.setOnItemSelectedListener(this);
+
+        Button cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        Button postButton = (Button) findViewById(R.id.postButton);
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //do stuff that would save this to database table.
+                finish();
+            }
+        });
     }
 
     @Override
