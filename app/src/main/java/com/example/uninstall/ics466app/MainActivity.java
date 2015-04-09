@@ -1,33 +1,38 @@
 package com.example.uninstall.ics466app;
 
 import android.content.Intent;
-import android.location.Location;
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.common.api.*;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
+
+    Spinner subjects;
+    EditText searchBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        subjects = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.class_list, android.R.layout.simple_spinner_item);
+        searchBox = (EditText) findViewById(R.id.search_box);
+
+        subjects.setAdapter(myArray);
+        subjects.setOnItemSelectedListener(this);
+
+        searchBox.setOnKeyListener(this);
 
         Button myAccountButton = (Button) findViewById(R.id.myAccountButton);
         myAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +51,25 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(newPostPage);
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //Does something when a button is chosen
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        //Might want to give a warning message if nothing selected.
+    }
+
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent event){
+        if((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN)){
+            //do a search like clicking the search button when enter is pressed on keyboard.
+            return true;
+        }
+        return false;
     }
 
     @Override

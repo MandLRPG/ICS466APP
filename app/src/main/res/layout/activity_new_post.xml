@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -18,9 +19,63 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Page For Adding a New Post"
+                android:text="NEW POST"
                 android:id="@+id/textView"
+                android:textStyle="bold"
+                android:textColor="#FF0000"
+                android:textSize="35sp"
                 android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="*Textbook Subject:"
+                android:id="@+id/selectSubject"
+                android:textSize="25sp"
+                android:layout_below="@+id/textView"
+                android:textColor="#33CC00" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:id="@+id/subjectSpinner"
+                android:layout_below="@+id/selectSubject"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="TextBook Title:"
+                android:id="@+id/titleText"
+                android:textSize="25sp"
+                android:layout_below="@+id/subjectSpinner"
+                android:textColor="#33CC00" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Example: Intro to Operating Systems"
+                android:id="@+id/editText"
+                android:layout_below="@+id/titleText" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="*ISBN Number (No Dashes):"
+                android:id="@+id/textISBN"
+                android:textSize="25sp"
+                android:layout_below="@+id/editText"
+                android:textColor="#33CC00" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Example: 9784048677608"
+                android:id="@+id/enterISBN"
+                android:layout_below="@+id/textISBN" />
 
         </RelativeLayout>
 
