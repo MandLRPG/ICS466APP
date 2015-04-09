@@ -92,6 +92,27 @@
                 android:id="@+id/enterISBN"
                 android:layout_below="@+id/textISBN" />
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="67sp"
+                android:textSize="23sp"
+                android:text="Create Posting"
+                android:id="@+id/postButton"
+                android:layout_below="@id/enterISBN"
+                android:layout_toRightOf="@+id/cancelButton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="67sp"
+                android:textSize="23sp"
+                android:text="Cancel"
+                android:id="@+id/cancelButton"
+                android:layout_below="@id/enterISBN"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+
         </RelativeLayout>
 
     </ScrollView>
