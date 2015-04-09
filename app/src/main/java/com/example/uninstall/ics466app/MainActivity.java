@@ -1,5 +1,6 @@
 package com.example.uninstall.ics466app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,11 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
@@ -66,7 +71,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public boolean onKey(View view, int keyCode, KeyEvent event){
         if((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN)){
-            //do a search like clicking the search button when enter is pressed on keyboard.
             return true;
         }
         return false;

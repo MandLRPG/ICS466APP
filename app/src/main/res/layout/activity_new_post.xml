@@ -30,19 +30,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="*Required Fields"
+                android:id="@+id/requiredText"
+                android:textSize="14sp"
+                android:layout_below="@+id/textView"
+                android:layout_centerHorizontal="true"
+                android:textColor="#FF0000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="*Textbook Subject:"
                 android:id="@+id/selectSubject"
                 android:textSize="25sp"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/requiredText"
                 android:textColor="#33CC00" />
 
             <Spinner
+                android:layout_marginTop="2sp"
                 android:layout_width="match_parent"
                 android:layout_height="25sp"
                 android:id="@+id/subjectSpinner"
-                android:layout_below="@+id/selectSubject"/>
+                android:layout_below="@+id/selectSubject"
+                android:spinnerMode="dialog"/>
 
             <TextView
+                android:layout_marginTop="8sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
@@ -60,6 +74,7 @@
                 android:layout_below="@+id/titleText" />
 
             <TextView
+                android:layout_marginTop="8sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
