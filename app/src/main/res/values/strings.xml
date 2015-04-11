@@ -54,5 +54,6 @@
         <item>ICS</item>
         <item>OTHER</item>
     </string-array>
+    <string name="title_activity_page_details">PageDetailsActivity</string>
 
 </resources>
