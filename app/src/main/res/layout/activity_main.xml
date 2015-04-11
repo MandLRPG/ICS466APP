@@ -7,7 +7,7 @@
     android:id="@+id/R">
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/main_menu_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -18,7 +18,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="67sp"
-                android:text="MY ACCOUNT"
+                android:text="@string/my_account"
                 android:id="@+id/myAccountButton"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
@@ -28,7 +28,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="67sp"
-                android:text="NEW POST"
+                android:text="@string/new_post"
                 android:id="@+id/newPostButton"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
@@ -40,13 +40,13 @@
             <EditText
                 android:id="@+id/search_box"
                 android:layout_width="wrap_content"
-                android:layout_height="35sp"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_text"
                 android:layout_toLeftOf="@+id/search_button"
                 android:layout_toStartOf="@+id/search_button"
                 android:layout_toRightOf="@+id/spinner"
                 android:layout_toEndOf="@+id/spinner"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="7dp"
                 android:layout_below="@+id/myAccountButton"
                 android:imeOptions="actionDone"/>
 
@@ -54,8 +54,8 @@
                 android:layout_width="73sp"
                 android:layout_height="65sp"
                 android:id="@+id/spinner"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignLeft="@+id/myAccountButton"
+                android:layout_alignStart="@+id/myAccountButton"
                 android:layout_below="@+id/myAccountButton"
                 android:spinnerMode="dialog"/>
 

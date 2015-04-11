@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Example: Intro to Operating Systems"
-                android:id="@+id/editText"
+                android:id="@+id/enterTxtBook"
                 android:layout_below="@+id/titleText" />
 
             <TextView
@@ -81,7 +81,7 @@
                 android:text="*ISBN Number (No Dashes):"
                 android:id="@+id/textISBN"
                 android:textSize="25sp"
-                android:layout_below="@+id/editText"
+                android:layout_below="@+id/enterTxtBook"
                 android:textColor="#33CC00" />
 
             <EditText

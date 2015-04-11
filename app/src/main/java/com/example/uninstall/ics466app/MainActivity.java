@@ -71,6 +71,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public boolean onKey(View view, int keyCode, KeyEvent event){
         if((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN)){
+            //Either make pressing enter close the keyboard or do the same as pressing search button here
             return true;
         }
         return false;

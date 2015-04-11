@@ -2,17 +2,21 @@ package com.example.uninstall.ics466app;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
-public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener{
+public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
     Spinner subjects;
+    EditText txtBookBox, isbnBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,12 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
         subjects.setAdapter(myArray);
         subjects.setOnItemSelectedListener(this);
+        txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
+        isbnBox = (EditText) findViewById(R.id.enterISBN);
+
+        txtBookBox.setOnKeyListener(this);
+        isbnBox.setOnKeyListener(this);
+
 
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +61,15 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     @Override
     public void onNothingSelected(AdapterView<?> adapterView){
         //When nothing in the list is selected
+    }
+
+    @Override
+    public boolean onKey(View view, int keyCode, KeyEvent event){
+        if((event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && (event.getAction() == KeyEvent.ACTION_DOWN)){
+            //Either make pressing enter close the keyboard or do the same as pressing search button here
+            return true;
+        }
+        return false;
     }
 
     @Override
