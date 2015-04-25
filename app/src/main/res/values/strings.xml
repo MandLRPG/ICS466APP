@@ -9,7 +9,7 @@
     <string name="hint_text">SEARCH&#8230;</string>
     <string name="description">DESCRIPTION</string>
 
-    <string name="my_account">MY ACCOUNT</string>
+    <string name="my_account">ACCOUNT</string>
     <string name="new_post">NEW POST</string>
 
     <string name="required_text">*Required Fields</string>

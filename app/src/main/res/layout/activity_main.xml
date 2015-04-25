@@ -15,59 +15,63 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/topButtons"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="67sp"
-                android:text="@string/my_account"
-                android:id="@+id/myAccountButton"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:textSize="24sp" />
+                android:layout_alignParentStart="true">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="67sp"
-                android:text="@string/new_post"
-                android:id="@+id/newPostButton"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_toRightOf="@+id/myAccountButton"
-                android:layout_toEndOf="@+id/myAccountButton"
-                android:textSize="24sp" />
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/my_account"
+                    android:id="@+id/myAccountButton"
+                    android:textSize="24sp"
+                    android:layout_weight="0.5"/>
 
-            <EditText
-                android:id="@+id/search_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/hint_text"
-                android:layout_toLeftOf="@+id/search_button"
-                android:layout_toStartOf="@+id/search_button"
-                android:layout_toRightOf="@+id/spinner"
-                android:layout_toEndOf="@+id/spinner"
-                android:layout_marginTop="7dp"
-                android:layout_below="@+id/myAccountButton"
-                android:imeOptions="actionDone"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/new_post"
+                    android:id="@+id/newPostButton"
+                    android:textSize="24sp"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
 
-            <Spinner
-                android:layout_width="73sp"
-                android:layout_height="65sp"
-                android:id="@+id/spinner"
-                android:layout_alignLeft="@+id/myAccountButton"
-                android:layout_alignStart="@+id/myAccountButton"
-                android:layout_below="@+id/myAccountButton"
-                android:spinnerMode="dialog"/>
+            <LinearLayout
+                android:id="@+id/search_layout"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="58sp"
+                android:layout_below="@+id/topButtons">
 
-            <Button
-                android:id="@+id/search_button"
-                android:layout_width="48sp"
-                android:layout_height="48sp"
-                android:text="GO!"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/myAccountButton"
-                />
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.23"
+                    android:spinnerMode="dialog"/>
+
+                <EditText
+                    android:id="@+id/search_box"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_text"
+                    android:layout_marginTop="3dp"
+                    android:layout_weight="0.595"
+                    android:imeOptions="actionDone"/>
+
+                <Button
+                    android:id="@+id/search_button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.175"
+                    android:text="GO!"/>
+
+            </LinearLayout>
 
             <fragment
                 android:layout_width="wrap_content"
@@ -76,7 +80,7 @@
                 android:id="@+id/fragment2"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/search_box"
+                android:layout_below="@+id/search_layout"
                 tools:layout="@layout/book_search_fragment" />
 
         </RelativeLayout>
