@@ -2,14 +2,24 @@
 <resources>
 
     <string name="app_name">ICS466APP</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_account_page">AccountPageActivity</string>
+    <string name="title_activity_page_details">PageDetailsActivity</string>
     <string name="title_activity_new_post">NewPostActivity</string>
-    <string name="hint_text">SEARCH...</string>
+    <string name="hint_text">SEARCH&#8230;</string>
     <string name="description">DESCRIPTION</string>
+
     <string name="my_account">MY ACCOUNT</string>
     <string name="new_post">NEW POST</string>
+
+    <string name="required_text">*Required Fields</string>
+    <string name="subject_text">*Textbook Subject:</string>
+    <string name="title_text">TextBook Title:</string>
+    <string name="title_hint">Example: Intro to Operating Systems</string>
+    <string name="isbn_text">*ISBN Number (No Dashes):</string>
+    <string name="isbn_hint">Example: 9784048677608</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_post">Create Post</string>
 
     <string-array name="class_list">
         <item>ACM</item>
@@ -54,6 +64,5 @@
         <item>ICS</item>
         <item>OTHER</item>
     </string-array>
-    <string name="title_activity_page_details">PageDetailsActivity</string>
 
 </resources>

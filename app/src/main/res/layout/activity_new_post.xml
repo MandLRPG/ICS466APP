@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="NEW POST"
+                android:text="@string/new_post"
                 android:id="@+id/textView"
                 android:textStyle="bold"
                 android:textColor="#FF0000"
@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="*Required Fields"
+                android:text="@string/required_text"
                 android:id="@+id/requiredText"
                 android:textSize="14sp"
                 android:layout_below="@+id/textView"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="*Textbook Subject:"
+                android:text="@string/subject_text"
                 android:id="@+id/selectSubject"
                 android:textSize="25sp"
                 android:layout_below="@+id/requiredText"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="TextBook Title:"
+                android:text="@string/title_text"
                 android:id="@+id/titleText"
                 android:textSize="25sp"
                 android:layout_below="@+id/subjectSpinner"
@@ -69,7 +69,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Example: Intro to Operating Systems"
+                android:hint="@string/title_hint"
                 android:id="@+id/enterTxtBook"
                 android:layout_below="@+id/titleText" />
 
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="*ISBN Number (No Dashes):"
+                android:text="@string/isbn_text"
                 android:id="@+id/textISBN"
                 android:textSize="25sp"
                 android:layout_below="@+id/enterTxtBook"
@@ -88,30 +88,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Example: 9784048677608"
+                android:hint="@string/isbn_hint"
                 android:id="@+id/enterISBN"
                 android:layout_below="@+id/textISBN" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="67sp"
-                android:textSize="23sp"
-                android:text="Create Posting"
-                android:id="@+id/postButton"
-                android:layout_below="@id/enterISBN"
-                android:layout_toRightOf="@+id/cancelButton"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"/>
+                android:layout_below="@+id/enterISBN">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="67sp"
-                android:textSize="23sp"
-                android:text="Cancel"
-                android:id="@+id/cancelButton"
-                android:layout_below="@id/enterISBN"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="23sp"
+                    android:text="@string/create_post"
+                    android:id="@+id/postButton"
+                    android:layout_weight="0.605"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="23sp"
+                    android:text="@string/cancel"
+                    android:id="@+id/cancelButton"
+                    android:layout_weight="0.395"/>
+
+            </LinearLayout>
 
         </RelativeLayout>
 
