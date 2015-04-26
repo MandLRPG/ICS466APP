@@ -87,10 +87,10 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.home_page:
-                Intent mainPage = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainPage);
+                finish();
                 return true;
             case R.id.account_page:
+                finish();
                 Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
                 startActivity(accountPage);
                 return true;

@@ -90,14 +90,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
-            case R.id.account_page:
-                Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
-                startActivity(accountPage);
-                return true;
-            case R.id.post_page:
-                Intent postPage = new Intent(getApplicationContext(), NewPostActivity.class);
-                startActivity(postPage);
-                return true;
             case R.id.action_settings:
                 return true;
             default:

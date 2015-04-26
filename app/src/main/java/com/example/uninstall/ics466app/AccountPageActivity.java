@@ -30,10 +30,10 @@ public class AccountPageActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch (item.getItemId()) {
             case R.id.home_page:
-                Intent mainPage = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainPage);
+                finish();
                 return true;
             case R.id.post_page:
+                finish();
                 Intent postPage = new Intent(getApplicationContext(), NewPostActivity.class);
                 startActivity(postPage);
                 return true;
