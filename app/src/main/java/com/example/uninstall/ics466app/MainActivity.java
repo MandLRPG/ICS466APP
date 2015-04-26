@@ -31,7 +31,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         subjects = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.class_list, android.R.layout.simple_spinner_item);
+        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.search_list, android.R.layout.simple_spinner_item);
         searchBox = (EditText) findViewById(R.id.search_box);
 
         subjects.setAdapter(myArray);

@@ -21,6 +21,12 @@
     <string name="cancel">Cancel</string>
     <string name="create_post">Create Post</string>
 
+    <string-array name="search_list">
+        <item>ISBN</item>
+        <item>Title</item>
+        <item>Author</item>
+    </string-array>
+
     <string-array name="class_list">
         <item>ACM</item>
         <item>ACC</item>
