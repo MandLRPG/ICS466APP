@@ -93,12 +93,23 @@
                 android:id="@+id/enterTxtBook"
                 android:layout_below="@+id/titleText" />
 
+            <TextView
+                android:layout_marginTop="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/title_text"
+                android:id="@+id/testText"
+                android:textSize="25sp"
+                android:layout_below="@+id/enterTxtBook"
+                android:textColor="#33CC00" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="67sp"
                 android:id="@+id/bottomButtons"
-                android:layout_below="@+id/enterTxtBook">
+                android:layout_below="@+id/testText">
 
                 <Button
                     android:layout_width="0dp"

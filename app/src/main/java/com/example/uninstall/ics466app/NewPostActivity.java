@@ -15,17 +15,21 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
     Spinner subjects;
     EditText txtBookBox, isbnBox;
+    MyDBManager dbManager;
+    TextView testText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
+        dbManager = new MyDBManager(this, null, null, 1);
         subjects = (Spinner) findViewById(R.id.subjectSpinner);
         ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.class_list, android.R.layout.simple_spinner_item);
 
@@ -33,6 +37,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         subjects.setOnItemSelectedListener(this);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         isbnBox = (EditText) findViewById(R.id.enterISBN);
+        testText = (TextView) findViewById(R.id.testText);
 
         txtBookBox.setOnKeyListener(this);
         isbnBox.setOnKeyListener(this);
@@ -51,6 +56,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //do stuff that would save this to database table.
+                //addToDatabase();
                 finish();
             }
         });
@@ -73,6 +79,15 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             return true;
         }
         return false;
+    }
+
+    public void addToDatabase() {
+        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), 50, "temp");
+        dbManager.addTextBook(textBook);
+        dbManager.addUserTextBook(textBook);
+
+        String dbString = dbManager.toString();
+        testText.setText(dbString);
     }
 
     public void showAlert(View view) {
