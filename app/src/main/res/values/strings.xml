@@ -4,9 +4,9 @@
     <string name="app_name">BookAway!</string>
     <string name="action_settings">My Account</string>
     <string name="log_out">Sign out</string>
-    <string name="title_activity_account_page">AccountPageActivity</string>
+    <string name="title_activity_account_page">My Account</string>
     <string name="title_activity_page_details">PageDetailsActivity</string>
-    <string name="title_activity_new_post">NewPostActivity</string>
+    <string name="title_activity_new_post">New Post</string>
     <string name="hint_text">SEARCH&#8230;</string>
     <string name="description">DESCRIPTION</string>
 
