@@ -60,28 +60,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/title_text"
-                android:id="@+id/titleText"
-                android:textSize="25sp"
-                android:layout_below="@+id/subjectSpinner"
-                android:textColor="#33CC00" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/title_hint"
-                android:id="@+id/enterTxtBook"
-                android:layout_below="@+id/titleText" />
-
-            <TextView
-                android:layout_marginTop="8sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/isbn_text"
                 android:id="@+id/textISBN"
                 android:textSize="25sp"
-                android:layout_below="@+id/enterTxtBook"
+                android:layout_below="@+id/subjectSpinner"
                 android:textColor="#33CC00" />
 
             <EditText
@@ -92,12 +74,30 @@
                 android:id="@+id/enterISBN"
                 android:layout_below="@+id/textISBN" />
 
+            <TextView
+                android:layout_marginTop="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/title_text"
+                android:id="@+id/titleText"
+                android:textSize="25sp"
+                android:layout_below="@+id/enterISBN"
+                android:textColor="#33CC00" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title_hint"
+                android:id="@+id/enterTxtBook"
+                android:layout_below="@+id/titleText" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="67sp"
                 android:id="@+id/bottomButtons"
-                android:layout_below="@+id/enterISBN">
+                android:layout_below="@+id/enterTxtBook">
 
                 <Button
                     android:layout_width="0dp"
