@@ -1,5 +1,7 @@
 package com.example.uninstall.ics466app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -40,7 +42,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                showAlert(v);
             }
         });
 
@@ -71,6 +73,26 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             return true;
         }
         return false;
+    }
+
+    public void showAlert(View view) {
+        AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
+        cancelAlert.setMessage("Cancel without posting? (Info will be deleted)").create();
+        cancelAlert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        cancelAlert.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+            }
+        });
+        cancelAlert.setTitle("Delete New Post Without Posting?");
+        cancelAlert.show();
     }
 
     @Override
