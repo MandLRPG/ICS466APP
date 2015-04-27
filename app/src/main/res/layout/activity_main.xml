@@ -76,7 +76,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.175"
-                    android:text="GO!"/>
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="3dp"
+                    android:text="GO!"
+                    android:background="#ff29906d"
+                    android:textColor="#ffffffff" />
 
             </LinearLayout>
 

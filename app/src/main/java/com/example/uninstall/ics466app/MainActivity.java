@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         searchBox.setOnKeyListener(this);
 
+        // create buttons, open page once clicked it
         Button myAccountButton = (Button) findViewById(R.id.myAccountButton);
         myAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +49,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             }
         });
 
+        // create buttons, open page once clicked it
         Button newPostButton = (Button) findViewById(R.id.newPostButton);
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +86,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         return true;
     }
 
+    // button on the top-right corner
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

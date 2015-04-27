@@ -92,7 +92,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
     public void showAlert(View view) {
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
-        cancelAlert.setMessage("Cancel without posting? (Info will be deleted)").create();
+        cancelAlert.setMessage("Draft will be deleted.").create();
         cancelAlert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -106,7 +106,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 //do nothing
             }
         });
-        cancelAlert.setTitle("Delete New Post Without Posting?");
+        cancelAlert.setTitle("Cancel Posting?");
         cancelAlert.show();
     }
 
@@ -117,11 +117,14 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         return true;
     }
 
+    // button on the top-right corner
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        // go to different pages once button clicked
         switch (item.getItemId()) {
             case R.id.home_page:
                 finish();
