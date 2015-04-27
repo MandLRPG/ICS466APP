@@ -14,11 +14,16 @@
     <string name="new_post">NEW POST</string>
 
     <string name="required_text">*Required Fields</string>
+    <string name="message_text">(Filling out only the required fields will auto fill the other entries when posting)</string>
     <string name="subject_text">*Textbook Subject:</string>
+    <string name="price_text">*Posting Price:</string>
+    <string name="price_hint">Example: 125.40</string>
     <string name="title_text">TextBook Title:</string>
     <string name="title_hint">Example: Intro to Operating Systems</string>
     <string name="isbn_text">*ISBN Number (No Dashes):</string>
     <string name="isbn_hint">Example: 9784048677608</string>
+    <string name="author_text">Author:</string>
+    <string name="author_hint">Example: Smith</string>
     <string name="cancel">Cancel</string>
     <string name="create_post">Create Post</string>
 

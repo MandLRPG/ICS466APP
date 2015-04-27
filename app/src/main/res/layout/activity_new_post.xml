@@ -19,23 +19,22 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="@string/new_post"
-                android:id="@+id/textView"
-                android:textStyle="bold"
-                android:textColor="#FF0000"
-                android:textSize="35sp"
-                android:layout_centerHorizontal="true" />
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/required_text"
+                android:id="@+id/requiredText"
+                android:textSize="14sp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#FF0000" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/required_text"
-                android:id="@+id/requiredText"
+                android:text="@string/message_text"
+                android:id="@+id/commentText"
                 android:textSize="14sp"
-                android:layout_below="@+id/textView"
                 android:layout_centerHorizontal="true"
+                android:layout_below="@+id/requiredText"
                 android:textColor="#FF0000" />
 
             <TextView
@@ -45,7 +44,7 @@
                 android:text="@string/subject_text"
                 android:id="@+id/selectSubject"
                 android:textSize="25sp"
-                android:layout_below="@+id/requiredText"
+                android:layout_below="@+id/commentText"
                 android:textColor="#33CC00" />
 
             <Spinner
@@ -80,10 +79,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/price_text"
+                android:id="@+id/priceText"
+                android:textSize="25sp"
+                android:layout_below="@+id/enterISBN"
+                android:textColor="#33CC00" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/price_hint"
+                android:inputType="number"
+                android:id="@+id/enterPrice"
+                android:layout_below="@+id/priceText" />
+
+            <TextView
+                android:layout_marginTop="8sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/title_text"
                 android:id="@+id/titleText"
                 android:textSize="25sp"
-                android:layout_below="@+id/enterISBN"
+                android:layout_below="@+id/enterPrice"
                 android:textColor="#33CC00" />
 
             <EditText
@@ -98,18 +116,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/title_text"
-                android:id="@+id/testText"
+                android:text="@string/author_text"
+                android:id="@+id/authorText"
                 android:textSize="25sp"
                 android:layout_below="@+id/enterTxtBook"
                 android:textColor="#33CC00" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/author_hint"
+                android:id="@+id/authorHint"
+                android:layout_below="@+id/authorText" />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="67sp"
                 android:id="@+id/bottomButtons"
-                android:layout_below="@+id/testText">
+                android:layout_below="@+id/authorHint">
 
                 <Button
                     android:layout_width="0dp"
