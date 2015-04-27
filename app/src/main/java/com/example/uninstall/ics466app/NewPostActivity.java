@@ -37,7 +37,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         subjects.setOnItemSelectedListener(this);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         isbnBox = (EditText) findViewById(R.id.enterISBN);
-        testText = (TextView) findViewById(R.id.testText);
+        testText = (TextView) findViewById(R.id.authorText);
 
         txtBookBox.setOnKeyListener(this);
         isbnBox.setOnKeyListener(this);
