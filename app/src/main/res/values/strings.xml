@@ -28,7 +28,7 @@
     <string name="create_post">Create Post</string>
 
     <string-array name="search_list">
-        <item >ISBN</item>
+        <item>ISBN</item>
         <item>Title</item>
         <item>Author</item>
     </string-array>
