@@ -57,11 +57,20 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String[] bookInfo = {"", "", "", ""};
                 //do stuff that would save this to database table.
+                WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
+                bookInfo = retrieve.getBookInfo();
 
-                showConfirmation(v);
-                //addToDatabase();
-                finish();
+                switch(bookInfo[0]) {
+                    case "No such book":    showError(v, 0);
+                                            break;
+
+                    case "No ISBN number":  showError(v, 1);
+                                            break;
+
+                    default:                showConfirmation(v, bookInfo, priceBox.getText().toString());
+                }
             }
         });
     }
@@ -85,6 +94,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         return false;
     }
 
+    //Unused database code
     public void addToDatabase() {
         TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), 50, "temp");
         dbManager.addTextBook(textBook);
@@ -93,6 +103,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
     public void showAlert(View view) {
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
+        cancelAlert.setTitle("Cancel Posting?");
         cancelAlert.setMessage("Draft will be deleted.").create();
         cancelAlert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
             @Override
@@ -107,12 +118,52 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 //do nothing
             }
         });
-        cancelAlert.setTitle("Cancel Posting?");
         cancelAlert.show();
     }
 
-    public void showConfirmation(View view) {
+    public void showError(View view, int eNum) {
+        AlertDialog.Builder error = new AlertDialog.Builder(this);
+        error.setTitle("Error");
+        if(eNum == 0) {
+            error.setMessage("No book with such ISBN number").create();
+        }
+        else {
+            error.setMessage("ISBN field is blank or invalid input received").create();
+        }
+        error.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+            }
+        });
+        error.show();
+    }
+
+    public void showConfirmation(View view, String[] bookInfo, String price) {
         AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+        confirm.setTitle("Create Posting?");
+        confirm.setMessage("Create the following posting?\n\n" +
+                "Posting Price: $" + price + "\n" +
+                "Title: " + bookInfo[0] + "\n" +
+                "Author(s): " + bookInfo[1] + "\n" +
+                "Edition: " + bookInfo[2] + "\n" +
+                "Cover Type: " + bookInfo[3]).create();
+
+        confirm.setPositiveButton("Post!!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //addToDatabase();
+                finish();
+            }
+        });
+
+        confirm.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do nothing
+            }
+        });
+        confirm.show();
     }
 
     @Override
