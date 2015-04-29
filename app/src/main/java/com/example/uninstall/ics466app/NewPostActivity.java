@@ -20,9 +20,8 @@ import android.widget.TextView;
 public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
     Spinner subjects;
-    EditText txtBookBox, isbnBox;
+    EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
-    TextView testText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +34,16 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
         subjects.setAdapter(myArray);
         subjects.setOnItemSelectedListener(this);
-        txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
+
         isbnBox = (EditText) findViewById(R.id.enterISBN);
-        testText = (TextView) findViewById(R.id.authorText);
+        priceBox = (EditText) findViewById(R.id.enterPrice);
+        txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
+        authorBox = (EditText) findViewById(R.id.enterAuthor);
 
-        txtBookBox.setOnKeyListener(this);
         isbnBox.setOnKeyListener(this);
-
+        priceBox.setOnKeyListener(this);
+        txtBookBox.setOnKeyListener(this);
+        authorBox.setOnKeyListener(this);
 
         Button cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +58,8 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             @Override
             public void onClick(View v) {
                 //do stuff that would save this to database table.
+
+                showConfirmation(v);
                 //addToDatabase();
                 finish();
             }
@@ -85,9 +89,6 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), 50, "temp");
         dbManager.addTextBook(textBook);
         dbManager.addUserTextBook(textBook);
-
-        String dbString = dbManager.toString();
-        testText.setText(dbString);
     }
 
     public void showAlert(View view) {
@@ -108,6 +109,10 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         });
         cancelAlert.setTitle("Cancel Posting?");
         cancelAlert.show();
+    }
+
+    public void showConfirmation(View view) {
+        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
     }
 
     @Override

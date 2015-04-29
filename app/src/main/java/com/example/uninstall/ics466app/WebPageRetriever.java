@@ -26,7 +26,7 @@ public class WebPageRetriever {
         isbn = String.valueOf(isbnNumber);
     }
 
-    //Returns a String array containing book title, author,
+    //Returns a String array containing book title, author, edition #, and cover type
     public String[] getBookInfo() {
         String[] bookInfo = {"", "", "", ""};
         String foundInfo;

@@ -127,7 +127,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/author_hint"
-                android:id="@+id/authorHint"
+                android:id="@+id/enterAuthor"
                 android:layout_below="@+id/authorText" />
 
             <LinearLayout
@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="67sp"
                 android:id="@+id/bottomButtons"
-                android:layout_below="@+id/authorHint">
+                android:layout_below="@+id/enterAuthor">
 
                 <Button
                     android:layout_width="0dp"
