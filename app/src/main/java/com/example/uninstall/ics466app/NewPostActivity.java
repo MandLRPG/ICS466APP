@@ -1,10 +1,16 @@
 package com.example.uninstall.ics466app;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
+import android.os.NetworkOnMainThreadException;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +28,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     Spinner subjects;
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
+    static String[] bookInfo = {"", "", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +64,35 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String[] bookInfo = {"", "", "", ""};
-                //do stuff that would save this to database table.
-                WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
-                bookInfo = retrieve.getBookInfo();
+                ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
-                switch(bookInfo[0]) {
-                    case "No such book":    showError(v, 0);
-                                            break;
+                if(networkInfo != null && networkInfo.isConnected()) {
+                    //String webURL = "http://www.isbnsearch.org/isbn/" + isbnBox.getText().toString();
+                    //do stuff that would save this to database table.
+                    WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
+                    retrieve.start();
+                    while(! retrieve.isDone) {
 
-                    case "No ISBN number":  showError(v, 1);
-                                            break;
+                    }
+                    bookInfo = retrieve.getInfo();
+                    //new WebPageRetriever().execute(webURL);
 
-                    default:                showConfirmation(v, bookInfo, priceBox.getText().toString());
+                    switch (bookInfo[0]) {
+                        case "No such book":
+                            showError(v, 0);
+                            break;
+
+                        case "No ISBN number":
+                            showError(v, 1);
+                            break;
+
+                        default:
+                            showConfirmation(v, bookInfo, priceBox.getText().toString());
+                    }
+                }
+                else {
+                    showError(v, 3);
                 }
             }
         });
@@ -124,11 +147,16 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     public void showError(View view, int eNum) {
         AlertDialog.Builder error = new AlertDialog.Builder(this);
         error.setTitle("Error");
-        if(eNum == 0) {
-            error.setMessage("No book with such ISBN number").create();
-        }
-        else {
-            error.setMessage("ISBN field is blank or invalid input received").create();
+
+        switch(eNum) {
+            case 0: error.setMessage("No book with such ISBN number").create();
+                    break;
+
+            case 1: error.setMessage("ISBN field is blank or invalid input received").create();
+                    break;
+
+            case 2: error.setMessage("No network connection available.");
+
         }
         error.setNeutralButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -142,14 +170,14 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     public void showConfirmation(View view, String[] bookInfo, String price) {
         AlertDialog.Builder confirm = new AlertDialog.Builder(this);
         confirm.setTitle("Create Posting?");
-        confirm.setMessage("Create the following posting?\n\n" +
-                "Posting Price: $" + price + "\n" +
-                "Title: " + bookInfo[0] + "\n" +
-                "Author(s): " + bookInfo[1] + "\n" +
-                "Edition: " + bookInfo[2] + "\n" +
-                "Cover Type: " + bookInfo[3]).create();
+        confirm.setMessage("Create the following posting?\n\n\n" +
+                Html.fromHtml(getString(R.string.price)) + price + "\n\n" +
+                Html.fromHtml(getString(R.string.title)) + bookInfo[0] + "\n\n" +
+                Html.fromHtml(getString(R.string.author)) + bookInfo[1] + "\n\n" +
+                Html.fromHtml(getString(R.string.edition)) + bookInfo[2] + "\n\n" +
+                Html.fromHtml(getString(R.string.cover)) + bookInfo[3]).create();
 
-        confirm.setPositiveButton("Post!!", new DialogInterface.OnClickListener() {
+        confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //addToDatabase();
@@ -157,13 +185,17 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             }
         });
 
-        confirm.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        confirm.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Do nothing
             }
         });
         confirm.show();
+    }
+
+    public static void setBookInfo(String[] retrievedInfo) {
+        bookInfo = retrievedInfo;
     }
 
     @Override

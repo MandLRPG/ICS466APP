@@ -1,8 +1,14 @@
 package com.example.uninstall.ics466app;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,8 +21,28 @@ import java.util.regex.Pattern;
  * NORMALLY THIS FILE WILL NORMALLY BE ON THE SERVER SIDE WHICH WOULD TAKE CARE OF ALL OF
  * THE SEARCHING AND RETURNING OF VALUES TO FILL DATABASE TABLE VALUES.
  */
-public class WebPageRetriever {
+public class WebPageRetriever extends Thread {
     String isbn;
+    String[] bookInfo = {"N/A", "N/A", "N/A", "N/A"};
+    boolean isDone = false;
+
+    /*@Override
+    protected String[] doInBackground(String... params) {
+        return getBookInfo(params[0]);
+    }*/
+
+    public void run() {
+        getBookInfo("http://www.isbnsearch.org/isbn/" + isbn);
+        isDone = true;
+    }
+
+    public boolean getDone() {
+        return isDone;
+    }
+
+    public String[] getInfo() {
+        return bookInfo;
+    }
 
     public WebPageRetriever() {
         //Default constructor
@@ -27,47 +53,56 @@ public class WebPageRetriever {
     }
 
     //Returns a String array containing book title, author, edition #, and cover type
-    public String[] getBookInfo() {
-        String[] bookInfo = {"", "", "", ""};
+    public String[] getBookInfo(String webURL) {
         String foundInfo;
-        String inputLine;
         int numHits = 0;
-        BufferedReader reader = null;
         Matcher match = null;
-        String webURL = "http://www.isbnsearch.org/isbn/" + isbn;
-        Pattern titlePattern = Pattern.compile("<title>.*?\\|(.*?)<title>");
+        Matcher lastMatch = null;
+        InputStream is = null;
+        Pattern titlePattern = Pattern.compile("<title>.*?\\|(.*?)</title>");
         Pattern authorPattern = Pattern.compile("Author.*?>(.*?)</p>");
         Pattern editionPattern = Pattern.compile("Edition.*?>(.*?)</p>");
         Pattern bookTypePattern = Pattern.compile("Binding.*?>(.*?)</p>");
 
         try {
             URL url = new URL(webURL);
-            reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            /*HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+            connection.connect();
+            is = connection.getInputStream();
 
-            while((inputLine = reader.readLine()) != null && numHits < 4) {
+            String contentAsString = readIt(is, 1000);*/
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String readLine = "";
+
+            while((readLine = reader.readLine()) != null && numHits < 4) {
                 switch (numHits) {
-                    case 0: match = titlePattern.matcher(inputLine);
+                    case 0: match = titlePattern.matcher(readLine);
                             break;
 
-                    case 1: match = authorPattern.matcher(inputLine);
+                    case 1: match = authorPattern.matcher(readLine);
                             break;
 
-                    case 2: match = editionPattern.matcher(inputLine);
-                            break;
-
-                    case 3: match = bookTypePattern.matcher(inputLine);
+                    case 2: match = editionPattern.matcher(readLine);
                             break;
                 }
+
+                lastMatch = bookTypePattern.matcher(readLine);
 
                 if(match.find()) {
                     foundInfo = match.group(1).trim();
 
                     switch (numHits) {
                         case 0: if(foundInfo.equals("ISBN Search - Page Not Found")) {
+                                    System.out.println("BREAK 3");
                                     bookInfo[0] = "No such book";
                                     return bookInfo;
                                 }
                                 else if(foundInfo.equals("ISBN Search")) {
+                                    System.out.println("BREAK 3");
                                     bookInfo[0] = "No ISBN number";
                                     return bookInfo;
                                 }
@@ -82,11 +117,12 @@ public class WebPageRetriever {
                         case 2: bookInfo[2] = foundInfo;
                                 numHits++;
                                 break;
-
-                        case 3: bookInfo[3] = foundInfo;
-                                numHits++;
-                                break;
                     }
+                }
+                else if(lastMatch.find()) {
+                    foundInfo = lastMatch.group(1).trim();
+                    bookInfo[3] = foundInfo;
+                    numHits = 4;
                 }
             }
         }
@@ -94,9 +130,9 @@ public class WebPageRetriever {
             e.printStackTrace();
         }
         finally {
-            if(reader != null) {
+            if(is != null) {
                 try {
-                    reader.close();
+                    is.close();
                 }
                 catch(IOException e) {
                     e.printStackTrace();
@@ -105,4 +141,18 @@ public class WebPageRetriever {
         }
         return bookInfo;
     }
+
+    /*public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
+        Reader reader = null;
+        reader = new InputStreamReader(stream, "UTF-8");
+        char[] buffer = new char[len];
+        reader.read(buffer);
+        return new String(buffer);
+    }*/
+
+    /*@Override
+    protected void onPostExecute(String[] result) {
+        super.onPostExecute(result);
+        NewPostActivity.setBookInfo(result);
+    }*/
 }
