@@ -10,6 +10,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -66,37 +67,14 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private Button signInButton;
     private View mSignOutButtons;
     private View mLoginFormView;
-
-    @Override
-    protected void onPlusClientRevokeAccess() {
-
-    }
-
-    @Override
-    protected void onPlusClientSignIn() {
-
-    }
-
-    @Override
-    protected void onPlusClientSignOut() {
-
-    }
-
-    @Override
-    protected void onPlusClientBlockingUI(boolean show) {
-
-    }
-
-    @Override
-    protected void updateConnectButtonState() {
-
-    }
+    MediaPlayer loginSong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        loginSong = MediaPlayer.create(LoginActivity.this, R.raw.miku);
+        loginSong.start();
         // Find the Google+ sign in button.
         //mPlusSignInButton = (SignInButton) findViewById(R.id.login_button);
         signInButton = (Button) findViewById(R.id.login_button);
@@ -259,11 +237,32 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+*/
+    @Override
+    protected void onPlusClientBlockingUI(boolean show) {
+        //showProgress(show);
+    }
+
+    @Override
+    protected void updateConnectButtonState() {
+/*        //TODO: Update this logic to also handle the user logged in by email.
+        boolean connected = getPlusClient().isConnected();
+
+        mSignOutButtons.setVisibility(connected ? View.VISIBLE : View.GONE);
+        mPlusSignInButton.setVisibility(connected ? View.GONE : View.VISIBLE);
+        mEmailLoginFormView.setVisibility(connected ? View.GONE : View.VISIBLE);
+*/    }
+
+    @Override
+    protected void onPlusClientRevokeAccess() {
+        // TODO: Access to the user's G+ account has been revoked.  Per the developer terms, delete
+        // any stored user data here.
+    }
 
     @Override
     protected void onPlusClientSignIn() {
         //Set up sign out and disconnect buttons.
-        Button signOutButton = (Button) findViewById(R.id.new_user_button);
+/*        Button signOutButton = (Button) findViewById(R.id.new_user_button);
         signOutButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -277,34 +276,13 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 revokeAccess();
             }
         });
-    }
-
-    @Override
-    protected void onPlusClientBlockingUI(boolean show) {
-        showProgress(show);
-    }
-
-    @Override
-    protected void updateConnectButtonState() {
-        //TODO: Update this logic to also handle the user logged in by email.
-        boolean connected = getPlusClient().isConnected();
-
-        mSignOutButtons.setVisibility(connected ? View.VISIBLE : View.GONE);
-        mPlusSignInButton.setVisibility(connected ? View.GONE : View.VISIBLE);
-        mEmailLoginFormView.setVisibility(connected ? View.GONE : View.VISIBLE);
-    }
-
-    @Override
-    protected void onPlusClientRevokeAccess() {
-        // TODO: Access to the user's G+ account has been revoked.  Per the developer terms, delete
-        // any stored user data here.
-    }
+*/    }
 
     @Override
     protected void onPlusClientSignOut() {
 
     }
-*/
+
     /**
      * Check if the device supports Google Play Services.  It's best
      * practice to check first rather than handling this as an error case.
@@ -429,6 +407,12 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         }
     }
 */
+    @Override
+    protected void onPause(){
+        super.onPause();
+        loginSong.release();
+        finish();
+    }
 }
 
 
