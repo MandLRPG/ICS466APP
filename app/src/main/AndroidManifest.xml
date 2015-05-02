@@ -22,9 +22,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
+            android:windowSoftInputMode="adjustResize|stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,13 +37,13 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".AccountPageActivity"
-            android:label="@string/title_activity_account_page" >
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:name=".AccountPageActivity"
+            android:label="@string/title_activity_account_page" >
         </activity>
         <activity
             android:name=".NewPostActivity"

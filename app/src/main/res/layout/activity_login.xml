@@ -36,78 +36,79 @@
                 android:layout_marginTop="31dp"
                 android:layout_marginBottom="60dp"
                 android:textSize="45sp"
-                android:textColor="#ff258d6d"/>
+                android:textColor="#ff29906d"/>
 
             <LinearLayout
-                android:id="@+id/email_login_form"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="307dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="Email or UserID"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:layout_marginBottom="16dp"
-                    android:singleLine="true"
-                    android:layout_marginLeft="23dp" />
+                    android:singleLine="true"/>
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="307dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:hint="Password"
                     android:imeActionId="@+id/login"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    android:layout_marginLeft="23dp"/>
+                    android:singleLine="true"/>
 
                 <Button
                     android:id="@+id/login_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="307dp"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:text="Log in"
                     android:textStyle="bold"
-                    android:layout_marginLeft="23dp" />
+                    android:background="#ff29906d"
+                    android:textColor="#ffffffff" />
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/new_user_button"
-                    style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="80dp"
-                    android:layout_marginLeft="23dp"
-                    android:layout_alignParentRight="@+id/forgot_password_button"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
                     android:text="New User?"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:background="#ff29906d"
+                    android:textColor="#ffffffff" />
 
                 <Button
                     android:id="@+id/forgot_password_button"
-                    style="?android:textAppearanceSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:text="Forgot password?"
                     android:textStyle="bold"
-                    android:layout_marginRight="23dp"
-                    android:layout_alignTop="@+id/new_user_button"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
+                    android:background="#ff29906d"
+                    android:textColor="#ffffffff" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 

@@ -7,6 +7,7 @@ import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -54,7 +55,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+    //private UserLoginTask mAuthTask = null;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -62,8 +63,34 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     private View mProgressView;
     private View mEmailLoginFormView;
     private SignInButton mPlusSignInButton;
+    private Button signInButton;
     private View mSignOutButtons;
     private View mLoginFormView;
+
+    @Override
+    protected void onPlusClientRevokeAccess() {
+
+    }
+
+    @Override
+    protected void onPlusClientSignIn() {
+
+    }
+
+    @Override
+    protected void onPlusClientSignOut() {
+
+    }
+
+    @Override
+    protected void onPlusClientBlockingUI(boolean show) {
+
+    }
+
+    @Override
+    protected void updateConnectButtonState() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +98,16 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         setContentView(R.layout.activity_login);
 
         // Find the Google+ sign in button.
-        mPlusSignInButton = (SignInButton) findViewById(R.id.login_button);
-        if (supportsGooglePlayServices()) {
+        //mPlusSignInButton = (SignInButton) findViewById(R.id.login_button);
+        signInButton = (Button) findViewById(R.id.login_button);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent homePage = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(homePage);
+            }
+        });
+     /*   if (supportsGooglePlayServices()) {
             // Set a listener to connect the user when the G+ button is clicked.
             mPlusSignInButton.setOnClickListener(new OnClickListener() {
                 @Override
@@ -85,6 +120,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             // Services.
             mPlusSignInButton.setVisibility(View.GONE);
             return;
+
         }
 
         // Set up the login form.
@@ -115,19 +151,22 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         mProgressView = findViewById(R.id.login_progress);
         mEmailLoginFormView = findViewById(R.id.email_login_form);
         mSignOutButtons = findViewById(R.id.new_user_button);
+
+    */
     }
 
+/*
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
 
-
+*/
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    public void attemptLogin() {
+/*    public void attemptLogin() {
         if (mAuthTask != null) {
             return;
         }
@@ -184,11 +223,11 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
-
+*/
     /**
      * Shows the progress UI and hides the login form.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+/*    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     public void showProgress(final boolean show) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
         // for very easy animations. If available, use these APIs to fade-in
@@ -265,21 +304,21 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     protected void onPlusClientSignOut() {
 
     }
-
+*/
     /**
      * Check if the device supports Google Play Services.  It's best
      * practice to check first rather than handling this as an error case.
      *
      * @return whether the device supports Google Play Services
      */
-    private boolean supportsGooglePlayServices() {
+/*    private boolean supportsGooglePlayServices() {
         return GooglePlayServicesUtil.isGooglePlayServicesAvailable(this) ==
                 ConnectionResult.SUCCESS;
     }
-
+*/
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
+    /*    return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
@@ -292,11 +331,12 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+     */   return null;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
+    /*    List<String> emails = new ArrayList<String>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
@@ -304,13 +344,14 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         }
 
         addEmailsToAutoComplete(emails);
+    */
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
-
+/*
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -330,12 +371,12 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
 
         mEmailView.setAdapter(adapter);
     }
-
+*/
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+/*    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
@@ -387,6 +428,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
             showProgress(false);
         }
     }
+*/
 }
 
 
