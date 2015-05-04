@@ -29,6 +29,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
     static String[] bookInfo = {"", "", "", ""};
+    long isbnNumber = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,10 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
-                if(networkInfo != null && networkInfo.isConnected()) {
+                if(isbnBox.getText().toString().equals("")) {
+                    //edit a blank textview that shows that this box needs to be filled
+                }
+                else if(networkInfo != null && networkInfo.isConnected()) {
                     //String webURL = "http://www.isbnsearch.org/isbn/" + isbnBox.getText().toString();
                     //do stuff that would save this to database table.
                     WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
@@ -180,7 +184,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //addToDatabase();
+                addToDatabase();
                 finish();
             }
         });
