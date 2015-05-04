@@ -218,9 +218,9 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 finish();
                 return true;
             case R.id.account_page:
-                finish();
                 Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
                 startActivity(accountPage);
+                finish();
                 return true;
             case R.id.action_settings:
                 return true;

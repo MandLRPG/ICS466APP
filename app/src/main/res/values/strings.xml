@@ -7,6 +7,7 @@
     <string name="title_activity_account_page">My Account</string>
     <string name="title_activity_page_details">PageDetailsActivity</string>
     <string name="title_activity_new_post">New Post</string>
+    <string name="title_activity_logout">Log out</string>
     <string name="hint_text">SEARCH&#8230;</string>
     <string name="description">DESCRIPTION</string>
 

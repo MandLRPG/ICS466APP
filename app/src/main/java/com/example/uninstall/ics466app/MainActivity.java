@@ -111,6 +111,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         switch (item.getItemId()) {
             case R.id.action_settings:
                 return true;
+            case R.id.logout:
+                Intent logPage = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(logPage);
+                finish();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

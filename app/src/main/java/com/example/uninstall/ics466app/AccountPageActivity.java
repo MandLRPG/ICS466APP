@@ -36,9 +36,9 @@ public class AccountPageActivity extends ActionBarActivity {
                 finish();
                 return true;
             case R.id.post_page:
-                finish();
                 Intent postPage = new Intent(getApplicationContext(), NewPostActivity.class);
                 startActivity(postPage);
+                finish();
                 return true;
             case R.id.action_settings:
                 return true;
