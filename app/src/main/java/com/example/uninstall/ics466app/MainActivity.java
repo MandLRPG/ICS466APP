@@ -1,5 +1,8 @@
 package com.example.uninstall.ics466app;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -59,6 +62,19 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             }
         });
 
+        // Check that the activity is using the layout version with search_fragment
+        if (findViewById(R.id.search_fragment) != null) {
+            // restored from a previous state
+            if (savedInstanceState != null) {
+                return;
+            }
+            // Create a new BookSearchFragment
+            BookSearchFragment firstFragment = new BookSearchFragment();
+
+            // Add the fragment to the search_fragment FrameLayout
+            getSupportFragmentManager().beginTransaction().add(R.id.search_fragment, firstFragment).commit();
+        }
+
         // Go Button
         Button goButton = (Button) findViewById(R.id.search_button);
         goButton.setOnClickListener(new View.OnClickListener(){
@@ -70,7 +86,22 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
                 }
                 else{
+                    FragmentManager fragmentManager = getSupportFragmentManager();
 
+                    // avoid overlap fragment
+                    if(fragmentManager.getBackStackEntryCount() > 0)
+                    {
+                        fragmentManager.popBackStack(null,
+                                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    }
+
+                    Fragment noResult = new NoResultFragment();
+
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+                    fragmentTransaction.replace(R.id.search_fragment, noResult);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
                 }
             }
         });

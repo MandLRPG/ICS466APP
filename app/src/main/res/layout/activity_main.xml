@@ -85,15 +85,32 @@
 
             </LinearLayout>
 
-            <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="com.example.uninstall.ics466app.BookSearchFragment"
-                android:id="@+id/fragment2"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/description_text"
+                android:background="@drawable/border"
+                android:layout_below="@id/search_layout">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:textSize="25sp"
+                    android:text="@string/description"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="#ff11421a"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/search_fragment"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/search_layout"
-                tools:layout="@layout/book_search_fragment" />
+                android:layout_below="@+id/description_text"/>
 
         </RelativeLayout>
 
