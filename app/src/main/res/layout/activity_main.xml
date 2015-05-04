@@ -95,16 +95,6 @@
                 android:layout_below="@+id/search_layout"
                 tools:layout="@layout/book_search_fragment" />
 
-            <fragment
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:name="com.example.uninstall.ics466app.NoResultFragment"
-                android:id="@+id/fragment1"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/search_layout"
-                tools:layout="@layout/no_result_fragment" />
-
         </RelativeLayout>
 
     </ScrollView>
