@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         searchBox.setOnKeyListener(this);
 
-        // create buttons, open page once clicked it
+        // My Account Button
         Button myAccountButton = (Button) findViewById(R.id.myAccountButton);
         myAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,13 +49,29 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             }
         });
 
-        // create buttons, open page once clicked it
+        // New Post Button
         Button newPostButton = (Button) findViewById(R.id.newPostButton);
         newPostButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent newPostPage = new Intent(getApplicationContext(), NewPostActivity.class);
                 startActivity(newPostPage);
+            }
+        });
+
+        // Go Button
+        Button goButton = (Button) findViewById(R.id.search_button);
+        goButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // get the text entered by user
+                String searchText = searchBox.getText().toString();
+                if(searchText.contentEquals("whatever we have in our database")){
+
+                }
+                else{
+
+                }
             }
         });
     }

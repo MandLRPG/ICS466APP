@@ -81,6 +81,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent homePage = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(homePage);
             }
@@ -411,7 +412,6 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     protected void onPause(){
         super.onPause();
         loginSong.release();
-        finish();
     }
 }
 
