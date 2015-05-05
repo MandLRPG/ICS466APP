@@ -28,6 +28,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     Spinner subjects;
     EditText searchBox;
+    String searchType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +86,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 String searchText = searchBox.getText().toString();
                 if(searchText.contentEquals("whatever we have in our database")){
 
-                    searchBox.setText("");
+                    //searchBox.setText("");
                 }
                 else{
-                    searchBox.setText("");
+                    //searchBox.setText("");
                     FragmentManager fragmentManager = getSupportFragmentManager();
 
                     // avoid overlap fragment
@@ -111,6 +112,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         //Does something when a button is chosen
+        searchType = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override

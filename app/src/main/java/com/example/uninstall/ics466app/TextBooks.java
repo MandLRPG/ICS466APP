@@ -12,7 +12,7 @@ public class TextBooks {
 
     private long _isbn;
     private int _dateAdded;
-    private double _price;
+    private float _price;
     private String _title;
     private String _author;
     private String _user;
@@ -21,7 +21,7 @@ public class TextBooks {
     public TextBooks() {
     }
 
-    public TextBooks(long isbn, int price, String type) {
+    public TextBooks(long isbn, float price, String type) {
         //Grabs the current date and time
         String dateFormat = "MM-dd HH:mm";
         Calendar current = Calendar.getInstance();

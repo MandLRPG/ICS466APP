@@ -30,6 +30,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     MyDBManager dbManager;
     static String[] bookInfo = {"", "", "", ""};
     long isbnNumber = 0;
+    String department;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +105,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
         //Does something when an item is selected from the list.
+        department = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override
@@ -120,9 +122,9 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         return false;
     }
 
-    //Unused database code
+    //Add to database
     public void addToDatabase() {
-        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), 50, "temp");
+        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), Float.parseFloat(priceBox.getText().toString()), department);
         dbManager.addTextBook(textBook);
         dbManager.addUserTextBook(textBook);
     }
