@@ -35,7 +35,7 @@
                 android:id="@+id/selectSubject"
                 android:textSize="25sp"
                 android:layout_below="@+id/requiredText"
-                android:textColor="#FF0000" />
+                android:textColor="#ff34bc93" />
 
             <Spinner
                 android:layout_marginTop="2sp"
@@ -54,7 +54,7 @@
                 android:id="@+id/textISBN"
                 android:textSize="25sp"
                 android:layout_below="@+id/subjectSpinner"
-                android:textColor="#FF0000" />
+                android:textColor="#ff34bc93" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -65,15 +65,22 @@
                 android:layout_below="@+id/textISBN" />
 
             <TextView
-                android:layout_marginTop="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/error1"
+                android:layout_below="@+id/enterISBN"
+                android:textColor="#FF0000" /> />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/price_text"
                 android:id="@+id/priceText"
                 android:textSize="25sp"
-                android:layout_below="@+id/enterISBN"
-                android:textColor="#FF0000" />
+                android:layout_below="@+id/error1"
+                android:textColor="#ff34bc93" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -84,14 +91,21 @@
                 android:layout_below="@+id/priceText" />
 
             <TextView
-                android:layout_marginTop="8sp"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/error2"
+                android:layout_below="@+id/enterPrice"
+                android:textColor="#FF0000" /> />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/title_text"
                 android:id="@+id/titleText"
                 android:textSize="25sp"
-                android:layout_below="@+id/enterPrice"
+                android:layout_below="@+id/error2"
                 android:textColor="#ff34bc93" />
 
             <EditText
@@ -149,6 +163,7 @@
                     android:background="#ff29906d" />
 
             </LinearLayout>
+
 
         </RelativeLayout>
 

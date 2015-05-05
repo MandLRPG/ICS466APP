@@ -6,8 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
-import android.os.NetworkOnMainThreadException;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -15,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,6 +28,8 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     static String[] bookInfo = {"", "", "", ""};
     long isbnNumber = 0;
     String department;
+    Button cancelButton;
+    TextView errorMsg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         subjects = (Spinner) findViewById(R.id.subjectSpinner);
         ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.class_list, android.R.layout.simple_spinner_item);
         isbnBox = (EditText) findViewById(R.id.enterISBN);
+        errorMsg = (TextView) findViewById(R.id.error1);
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
@@ -53,7 +53,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         txtBookBox.setOnKeyListener(this);
         authorBox.setOnKeyListener(this);
 
-        Button cancelButton = (Button) findViewById(R.id.cancelButton);
+         cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,35 +68,29 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
-                if(isbnBox.getText().toString().equals("")) {
-                    //edit a blank textview that shows that this box needs to be filled
-                }
-                else if(networkInfo != null && networkInfo.isConnected()) {
-                    //String webURL = "http://www.isbnsearch.org/isbn/" + isbnBox.getText().toString();
-                    //do stuff that would save this to database table.
-                    WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
-                    retrieve.start();
-                    while(! retrieve.isDone) {
+                String isbnString = isbnBox.getText().toString().replace(" ", "");
 
+                try{
+                    long isbnLong = Long.parseLong(isbnString);
+                    if(networkInfo != null && networkInfo.isConnected()) {
+                        //String webURL = "http://www.isbnsearch.org/isbn/" + isbnBox.getText().toString();
+                        //do stuff that would save this to database table.
+                        WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
+                        retrieve.start();
+                        while(! retrieve.isDone) {
+
+                        }
+                        bookInfo = retrieve.getInfo();
+                        //new WebPageRetriever().execute(webURL);
+
+                        showConfirmation(v, bookInfo, priceBox.getText().toString());
                     }
-                    bookInfo = retrieve.getInfo();
-                    //new WebPageRetriever().execute(webURL);
-
-                    switch (bookInfo[0]) {
-                        case "No such book":
-                            showError(v, 0);
-                            break;
-
-                        case "No ISBN number":
-                            showError(v, 1);
-                            break;
-
-                        default:
-                            showConfirmation(v, bookInfo, priceBox.getText().toString());
+                    else {
+                        showError(v, 3);
                     }
                 }
-                else {
-                    showError(v, 3);
+                catch (NumberFormatException e){
+                    showError(v, 1);
                 }
             }
         });
@@ -129,6 +123,18 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         dbManager.addUserTextBook(textBook);
     }
 
+   /* public void printDatabase(){
+        String dbString = dbManager.textbookToString();
+        View inflatedView = getLayoutInflater().inflate(R.layout.book_search_fragment, null);
+        Button textbook = (Button) inflatedView.findViewById(R.id.button1);
+        cancelButton.setText(dbString);
+        textbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+    }*/
+
     public void showAlert(View view) {
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
         cancelAlert.setTitle("Cancel Posting?");
@@ -154,10 +160,11 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         error.setTitle("Error");
 
         switch(eNum) {
-            case 0: error.setMessage("No book with such ISBN number").create();
+            case 0: error.setMessage("No book with such ISBN number.").create();
                     break;
 
-            case 1: error.setMessage("ISBN field is blank or invalid input received").create();
+            case 1: error.setMessage("ISBN field or price field is blank or is an invalid number.").create();
+                    errorMsg.setText("No ISBN is entered.");
                     break;
 
             case 2: error.setMessage("No network connection available.");
@@ -186,6 +193,9 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 addToDatabase();
+                //BookSearchFragment web = new BookSearchFragment();
+                //web.printDatabase(dbManager);
+
                 finish();
             }
         });
@@ -209,6 +219,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         getMenuInflater().inflate(R.menu.menu_new_post, menu);
         return true;
     }
+
 
     // button on the top-right corner
     @Override
