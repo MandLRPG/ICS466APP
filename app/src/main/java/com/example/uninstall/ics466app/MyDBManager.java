@@ -6,9 +6,6 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 
-/**
- * Created by uninstall on 4/25/15.
- */
 public class MyDBManager extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 1;
@@ -50,8 +47,8 @@ public class MyDBManager extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_TEXTBOOKS);
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_USERTEXTBOOKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEXTBOOKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERTEXTBOOKS);
         onCreate(db);
     }
 
@@ -63,6 +60,12 @@ public class MyDBManager extends SQLiteOpenHelper{
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_TEXTBOOKS, null, values);
         db.close();
+    }
+
+    //Delete a textBook from database (probably only use if book is super outdated eg:20 years
+    public void deleteTextBook(int ISBN) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_ISBN + "=" + ISBN + ";" );
     }
 
     //Add new row in user textbook table
@@ -77,25 +80,23 @@ public class MyDBManager extends SQLiteOpenHelper{
                 " AND " + COLUMN_USER + "=\"" + user + "\";" );
     }
 
-    //Delete a textBook from database (probably only use if book is super outdated eg:20 years
-    public void deleteTextBook(int ISBN) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_ISBN + "=" + ISBN + ";" );
-    }
-
     //To string method for testing
-    public String toString() {
+    public String textbookToString() {
         String dbString = "";
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_TEXTBOOKS + " WHERE 1";
         String query2 = "SELECT * FROM " + TABLE_USERTEXTBOOKS + " WHERE 1";
 
+        //Cursor point to a location in results
         Cursor c = db.rawQuery(query, null);
+        //Move to the first row in results
         c.moveToFirst();
 
         while(!c.isAfterLast()) {
-            dbString += c.getInt(c.getColumnIndex("ISBN"));
-            dbString += "\n";
+            if(c.getString(c.getColumnIndex("ISBN")) != null){
+                dbString += c.getInt(c.getColumnIndex("ISBN"));
+                dbString += "\n";
+            }
         }
 
         db.close();

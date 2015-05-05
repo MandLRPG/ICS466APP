@@ -12,7 +12,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@+id/description_text"
             android:background="@drawable/border">
 
             <Button

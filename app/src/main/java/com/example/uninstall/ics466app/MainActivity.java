@@ -1,5 +1,6 @@
 package com.example.uninstall.ics466app;
 
+import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -84,15 +85,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 String searchText = searchBox.getText().toString();
                 if(searchText.contentEquals("whatever we have in our database")){
 
+                    searchBox.setText("");
                 }
                 else{
+                    searchBox.setText("");
                     FragmentManager fragmentManager = getSupportFragmentManager();
 
                     // avoid overlap fragment
                     if(fragmentManager.getBackStackEntryCount() > 0)
                     {
-                        fragmentManager.popBackStack(null,
-                                FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     }
 
                     Fragment noResult = new NoResultFragment();
@@ -106,7 +108,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             }
         });
     }
-
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         //Does something when a button is chosen

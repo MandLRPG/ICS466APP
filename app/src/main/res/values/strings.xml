@@ -14,8 +14,7 @@
     <string name="my_account">ACCOUNT</string>
     <string name="new_post">NEW POST</string>
 
-    <string name="required_text">*Required Fields</string>
-    <string name="message_text">(Filling out only the required fields will auto fill the other entries when posting)</string>
+    <string name="required_text">*Required Fields (Filling out only the required fields will auto fill the other entries when posting)</string>
     <string name="subject_text">*Textbook Subject:</string>
     <string name="price_text">*Posting Price:</string>
     <string name="price_hint">Example: 125.40</string>
