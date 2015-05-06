@@ -91,6 +91,21 @@ public class MyDBManager extends SQLiteOpenHelper{
         db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN + ";" );
     }
 
+    //Should have information such as user name, email, tel#, etc.  NOT PASSWORDS though.
+    public void addUserInfo(String userName) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INFO_USER, userName);
+
+        SQLiteDatabase db = getWritableDatabase();
+        db.insert(TABLE_USERINFO, null, values);
+        db.close();
+    }
+
+    //Only used if a user is no longer supported by the system. (EX: gradated 5 years ago)
+    public void removeUserInfo(String userName) {
+
+    }
+
     //Add new row in user textbook table
     public void addUserTextBook(TextBooks textBook) {
 
