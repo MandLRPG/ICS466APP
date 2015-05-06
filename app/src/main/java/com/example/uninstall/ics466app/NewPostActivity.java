@@ -167,7 +167,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
             case 1: error.setMessage("ISBN field is blank or an invalid number was entered.").create();
                     error.setTitle("Invalid Inputs");
-                    errorMsg.setText("No ISBN is entered.");
+                    errorMsg.setText("*ISBN must be entered.\n");
                     break;
 
             case 2: error.setMessage("No network connection available.");

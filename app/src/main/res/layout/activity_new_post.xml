@@ -51,7 +51,7 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:id="@+id/error1"
                 android:layout_below="@+id/enterISBN"
-                android:textColor="#FF0000" /> />
+                android:textColor="#FF0000"/>
 
             <TextView
                 android:layout_width="wrap_content"

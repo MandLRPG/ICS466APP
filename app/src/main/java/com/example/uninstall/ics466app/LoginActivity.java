@@ -73,7 +73,7 @@ public class LoginActivity extends PlusBaseActivity implements LoaderCallbacks<C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        loginSong = MediaPlayer.create(LoginActivity.this, R.raw.miku);
+        //loginSong = MediaPlayer.create(LoginActivity.this, R.raw.miku);
         //loginSong.start();
         // Find the Google+ sign in button.
         //mPlusSignInButton = (SignInButton) findViewById(R.id.login_button);
