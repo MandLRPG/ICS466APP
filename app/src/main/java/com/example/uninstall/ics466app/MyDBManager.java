@@ -11,19 +11,23 @@ public class MyDBManager extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "bookInfo.db";
+
     public static final String TABLE_TEXTBOOKS = "bookInfo";
     public static final String TABLE_USERTEXTBOOKS = "userBookInfo";
     public static final String TABLE_USERINFO = "userInfo";
+
     public static final String COLUMN_TB_ISBN = "tb_isbn";
-    public static final String COLUMN_UR_ISBN = "ur_isbn";
-    public static final String COLUMN_DATE = "dateAdded";
-    public static final String COLUMN_PRICE = "price";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_AUTHOR = "author";
-    public static final String COLUMN_TB_USER = "tb_user";
-    public static final String COLUMN_INFO_USER = "info_user";
     public static final String COLUMN_EDITION = "edition";
     public static final String COLUMN_BINDING = "binding";
+
+    public static final String COLUMN_UR_ISBN = "ur_isbn";
+    public static final String COLUMN_TB_USER = "tb_user";
+    public static final String COLUMN_PRICE = "price";
+    public static final String COLUMN_DATE = "dateAdded";
+
+    public static final String COLUMN_INFO_USER = "info_user";
 
     public MyDBManager(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
@@ -113,7 +117,7 @@ public class MyDBManager extends SQLiteOpenHelper{
             }
         }*/
 
-        String[] columns = new String[]{ COLUMN_TB_ISBN};
+        String[] columns = new String[]{COLUMN_TB_ISBN};
         Cursor c = db.query(TABLE_TEXTBOOKS, columns, null, null, null, null, null);
 
         int iISBN = c.getColumnIndex(COLUMN_TB_ISBN);

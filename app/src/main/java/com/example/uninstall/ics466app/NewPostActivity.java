@@ -118,7 +118,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
     //Add to database
     public void addToDatabase() {
-        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), Float.parseFloat(priceBox.getText().toString()), department);
+        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), Float.parseFloat(priceBox.getText().toString()));
         dbManager.addTextBook(textBook);
         dbManager.addUserTextBook(textBook);
     }

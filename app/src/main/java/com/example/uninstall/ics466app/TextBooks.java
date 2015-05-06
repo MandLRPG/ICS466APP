@@ -2,26 +2,26 @@ package com.example.uninstall.ics466app;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-/**
- * Created by uninstall on 4/25/15.
- */
 public class TextBooks {
 
     private long _isbn;
-    private int _dateAdded;
-    private float _price;
     private String _title;
     private String _author;
+    private String _edition;
+    private String _binding;
+
     private String _user;
-    private String _type;
+    private float _price;
+    private Date _dateAdded;
 
     public TextBooks() {
     }
 
-    public TextBooks(long isbn, float price, String type) {
+    public TextBooks(long isbn, float price) {
         //Grabs the current date and time
         String dateFormat = "MM-dd HH:mm";
         Calendar current = Calendar.getInstance();
@@ -30,21 +30,12 @@ public class TextBooks {
 
         this._isbn = isbn;
         this._price = price;
-        this._type = type;
-        this._dateAdded = sdf.hashCode();
+        //this._dateAdded = sdf.hashCode();
     }
 
     //All the getters below until the setters
     public long get_isbn() {
         return this._isbn;
-    }
-
-    public int get_dateAdded() {
-        return this._dateAdded;
-    }
-
-    public double get_price(){
-        return this._price;
     }
 
     public String get_title() {
@@ -55,21 +46,30 @@ public class TextBooks {
         return this._author;
     }
 
+    public String get_edition () {
+        return this._edition;
+    }
+
+    public String get_binding () {
+        return this._binding;
+    }
+
     public String get_user() {
         return this._user;
     }
 
-    public String get_type () {
-        return this._type;
+    public float get_price(){
+        return this._price;
     }
+
+    public Date get_dateAdded() {
+        return this._dateAdded;
+    }
+
 
     //All the setters
-    public void set_dateAdded(int dateAdded) {
-        this._dateAdded = dateAdded;
-    }
-
-    public void set_price(int price) {
-        this._price = price;
+    public void set_isbn(long isbn) {
+        this._isbn = isbn;
     }
 
     public void set_title(String title) {
@@ -80,11 +80,23 @@ public class TextBooks {
         this._author = author;
     }
 
+    public void set_edition(String edition) {
+        this._edition = edition;
+    }
+
+    public void set_binding(String binding) {
+        this._binding = binding;
+    }
+
     public void set_user(String user) {
         this._user = user;
     }
 
-    public void set_type(String type) {
-        this._type = type;
+    public void set_price(float price) {
+        this._price = price;
+    }
+
+    public void set_dateAdded(Date dateAdded) {
+        this._dateAdded = dateAdded;
     }
 }
