@@ -3,12 +3,14 @@ package com.example.uninstall.ics466app;
 import android.os.AsyncTask;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -95,17 +97,7 @@ public class WebPageRetriever extends Thread {
                     foundInfo = match.group(1).trim();
 
                     switch (numHits) {
-                        case 0: if(foundInfo.equals("ISBN Search - Page Not Found")) {
-                                    System.out.println("BREAK 3");
-                                    bookInfo[0] = "No such book";
-                                    return bookInfo;
-                                }
-                                else if(foundInfo.equals("ISBN Search")) {
-                                    System.out.println("BREAK 3");
-                                    bookInfo[0] = "No ISBN number";
-                                    return bookInfo;
-                                }
-                                bookInfo[0] = foundInfo;
+                        case 0: bookInfo[0] = foundInfo;
                                 numHits++;
                                 break;
 
@@ -125,8 +117,14 @@ public class WebPageRetriever extends Thread {
                 }
             }
         }
-        catch(Exception e) {
+        catch(FileNotFoundException e) {
+            bookInfo[0] = "NOPAGEFOUND";
+        }
+        catch(MalformedURLException e) {
             e.printStackTrace();
+        }
+        catch(IOException e) {
+
         }
         return bookInfo;
     }

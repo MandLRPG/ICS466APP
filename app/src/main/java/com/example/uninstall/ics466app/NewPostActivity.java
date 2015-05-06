@@ -40,14 +40,14 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
-        dbManager = new MyDBManager(this, null, null, 1);
+        //dbManager = new MyDBManager(this, null, null, 1);
 
         isbnBox.setOnKeyListener(this);
         priceBox.setOnKeyListener(this);
         txtBookBox.setOnKeyListener(this);
         authorBox.setOnKeyListener(this);
 
-         cancelButton = (Button) findViewById(R.id.cancelButton);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,15 +75,23 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
                         }
                         bookInfo = retrieve.getInfo();
-                        //new WebPageRetriever().execute(webURL);
-
-                        showConfirmation(v, bookInfo, priceBox.getText().toString());
+                        if(bookInfo[0].equals("NOPAGEFOUND")) {
+                            //If no such url exists (IE: no such ISBN numbered book)
+                            showError(v, 0);
+                        }
+                        else {
+                            //Boxes properly filled, show confirmation if user wants to post.
+                            showConfirmation(v, bookInfo, priceBox.getText().toString());
+                        }
                     }
                     else {
-                        showError(v, 3);
+                        //No network connection
+                        showError(v, 2);
                     }
                 }
                 catch (NumberFormatException e){
+                    //If a non-number or number with the wrong length (ex:a trillion digits).
+                    //Instead of doing this, should restrict the number of numbers that can be typed.
                     showError(v, 1);
                 }
             }
@@ -157,14 +165,15 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             case 0: error.setMessage("No book with such ISBN number.").create();
                     break;
 
-            case 1: error.setMessage("ISBN field or price field is blank or is an invalid number.").create();
+            case 1: error.setMessage("ISBN field is blank or an invalid number was entered.").create();
+                    error.setTitle("Invalid Inputs");
                     errorMsg.setText("No ISBN is entered.");
                     break;
 
             case 2: error.setMessage("No network connection available.");
 
         }
-        error.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+        error.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //do nothing
@@ -186,7 +195,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                addToDatabase();
+                //addToDatabase();
                 //BookSearchFragment web = new BookSearchFragment();
                 //web.printDatabase(dbManager);
 
