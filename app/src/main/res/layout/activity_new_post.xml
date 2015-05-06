@@ -31,30 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/subject_text"
-                android:id="@+id/selectSubject"
-                android:textSize="25sp"
-                android:layout_below="@+id/requiredText"
-                android:textColor="#ff34bc93" />
-
-            <Spinner
-                android:layout_marginTop="2sp"
-                android:layout_width="match_parent"
-                android:layout_height="25sp"
-                android:id="@+id/subjectSpinner"
-                android:layout_below="@+id/selectSubject"
-                android:spinnerMode="dialog"/>
-
-            <TextView
-                android:layout_marginTop="8sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="@string/isbn_text"
                 android:id="@+id/textISBN"
                 android:textSize="25sp"
-                android:layout_below="@+id/subjectSpinner"
-                android:textColor="#ff34bc93" />
+                android:textColor="#ff34bc93"
+                android:layout_below="@+id/requiredText" />
 
             <EditText
                 android:layout_width="match_parent"

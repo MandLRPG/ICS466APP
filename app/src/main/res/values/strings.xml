@@ -39,48 +39,4 @@
         <item>Author</item>
     </string-array>
 
-    <string-array name="class_list">
-        <item>ACM</item>
-        <item>ACC</item>
-        <item>AS</item>
-        <item>AMST</item>
-        <item>ANAT</item>
-        <item>ANSC</item>
-        <item>ANTH</item>
-        <item>ARAB</item>
-        <item>ARCH</item>
-        <item>ART</item>
-        <item>ASAN</item>
-        <item>ASTR</item>
-        <item>BIOC</item>
-        <item>BE</item>
-        <item>BIOL</item>
-        <item>BIOM</item>
-        <item>BOT</item>
-        <item>BUS</item>
-        <item>BLAW</item>
-        <item>CAM</item>
-        <item>CMB</item>
-        <item>CHAM</item>
-        <item>CHEM</item>
-        <item>CHN</item>
-        <item>CEE</item>
-        <item>COM</item>
-        <item>CIS</item>
-        <item>CSD</item>
-        <item>COMG</item>
-        <item>EDCS</item>
-        <item>DNCE</item>
-        <item>DH</item>
-        <item>DRB</item>
-        <item>DIS</item>
-        <item>EALL</item>
-        <item>ECON</item>
-        <item>EDEA</item>
-        <item>ENG</item>
-        <item>HIST</item>
-        <item>ICS</item>
-        <item>OTHER</item>
-    </string-array>
-
 </resources>

@@ -22,7 +22,6 @@ import android.widget.TextView;
 
 public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
-    Spinner subjects;
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
     static String[] bookInfo = {"", "", "", ""};
@@ -36,17 +35,12 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        subjects = (Spinner) findViewById(R.id.subjectSpinner);
-        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.class_list, android.R.layout.simple_spinner_item);
         isbnBox = (EditText) findViewById(R.id.enterISBN);
         errorMsg = (TextView) findViewById(R.id.error1);
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
         dbManager = new MyDBManager(this, null, null, 1);
-
-        subjects.setAdapter(myArray);
-        subjects.setOnItemSelectedListener(this);
 
         isbnBox.setOnKeyListener(this);
         priceBox.setOnKeyListener(this);
