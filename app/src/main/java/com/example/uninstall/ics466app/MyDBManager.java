@@ -74,15 +74,19 @@ public class MyDBManager extends SQLiteOpenHelper{
     public void addTextBook(TextBooks textBooks) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TB_ISBN, textBooks.get_isbn());
-        values.put(COLUMN_PRICE, textBooks.get_price());
+        values.put(COLUMN_TITLE, textBooks.get_price());
+        values.put(COLUMN_AUTHOR, textBooks.get_author());
+        values.put(COLUMN_EDITION, textBooks.get_edition());
+        values.put(COLUMN_BINDING, textBooks.get_binding());
 
         SQLiteDatabase db = getWritableDatabase();
+        //Inserts a row into the textbooks database
         db.insert(TABLE_TEXTBOOKS, null, values);
         db.close();
     }
 
     //Delete a textBook from database (probably only use if book is super outdated eg:20 years
-    public void deleteTextBook(int ISBN) {
+    public void deleteTextBook(long ISBN) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN + ";" );
     }

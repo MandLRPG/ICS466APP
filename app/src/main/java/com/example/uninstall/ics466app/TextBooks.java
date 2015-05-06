@@ -9,13 +9,13 @@ import java.util.TimeZone;
 public class TextBooks {
 
     private long _isbn;
-    private String _title;
-    private String _author;
-    private String _edition;
-    private String _binding;
+    private String _title = "";
+    private String _author = "";
+    private String _edition = "";
+    private String _binding = "";
 
-    private String _user;
-    private float _price;
+    private String _user = "";
+    private float _price = 0;
     private Date _dateAdded;
 
     public TextBooks() {
