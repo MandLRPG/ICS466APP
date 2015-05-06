@@ -74,6 +74,7 @@ public class MyDBManager extends SQLiteOpenHelper{
     public void addTextBook(TextBooks textBooks) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TB_ISBN, textBooks.get_isbn());
+        values.put(COLUMN_PRICE, textBooks.get_price());
 
         SQLiteDatabase db = getWritableDatabase();
         db.insert(TABLE_TEXTBOOKS, null, values);

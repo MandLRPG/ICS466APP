@@ -52,13 +52,13 @@ public class WebPageRetriever extends Thread {
         isbn = String.valueOf(isbnNumber);
     }
 
-    //Returns a String array containing book title, author, edition #, and cover type
+    //Returns a String array containing book title, author, edition #, and binding
     public String[] getBookInfo(String webURL) {
         String foundInfo;
         int numHits = 0;
         Matcher match = null;
         Matcher lastMatch = null;
-        InputStream is = null;
+        InputStream iStream = null;
         Pattern titlePattern = Pattern.compile("<title>.*?\\|(.*?)</title>");
         Pattern authorPattern = Pattern.compile("Author.*?>(.*?)</p>");
         Pattern editionPattern = Pattern.compile("Edition.*?>(.*?)</p>");
@@ -130,9 +130,9 @@ public class WebPageRetriever extends Thread {
             e.printStackTrace();
         }
         finally {
-            if(is != null) {
+            if(iStream != null) {
                 try {
-                    is.close();
+                    iStream.close();
                 }
                 catch(IOException e) {
                     e.printStackTrace();
