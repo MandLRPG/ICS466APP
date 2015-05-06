@@ -57,8 +57,7 @@ public class WebPageRetriever extends Thread {
         String foundInfo;
         int numHits = 0;
         Matcher match = null;
-        Matcher lastMatch = null;
-        InputStream iStream = null;
+        Matcher lastMatch;
         Pattern titlePattern = Pattern.compile("<title>.*?\\|(.*?)</title>");
         Pattern authorPattern = Pattern.compile("Author.*?>(.*?)</p>");
         Pattern editionPattern = Pattern.compile("Edition.*?>(.*?)</p>");
@@ -76,7 +75,7 @@ public class WebPageRetriever extends Thread {
 
             String contentAsString = readIt(is, 1000);*/
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String readLine = "";
+            String readLine;
 
             while((readLine = reader.readLine()) != null && numHits < 4) {
                 switch (numHits) {
@@ -128,16 +127,6 @@ public class WebPageRetriever extends Thread {
         }
         catch(Exception e) {
             e.printStackTrace();
-        }
-        finally {
-            if(iStream != null) {
-                try {
-                    iStream.close();
-                }
-                catch(IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
         return bookInfo;
     }
