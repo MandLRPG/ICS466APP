@@ -1,11 +1,14 @@
 package com.example.uninstall.ics466app;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -17,14 +20,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
+    //private ProgressBar spinProgress;
+
+    static String[] bookInfo = {"", "", "", ""};
+
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
-    static String[] bookInfo = {"", "", "", ""};
     long isbnNumber = 0;
     String department;
     Button cancelButton;
@@ -34,6 +41,9 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        //spinProgress = (ProgressBar)findViewById(R.id.progressSpinner);
+        //spinProgress.setVisibility(View.GONE);
 
         isbnBox = (EditText) findViewById(R.id.enterISBN);
         errorMsg = (TextView) findViewById(R.id.error1);
@@ -58,7 +68,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         Button postButton = (Button) findViewById(R.id.postButton);
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
@@ -66,23 +76,39 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
 
                 try{
                     long isbnLong = Long.parseLong(isbnString);
+                    final WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
                     if(networkInfo != null && networkInfo.isConnected()) {
-                        //String webURL = "http://www.isbnsearch.org/isbn/" + isbnBox.getText().toString();
+                        final ProgressDialog pd = ProgressDialog.show(NewPostActivity.this, "Please Wait...", "Searching...");
                         //do stuff that would save this to database table.
-                        WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
-                        retrieve.start();
-                        while(! retrieve.isDone) {
-
-                        }
-                        bookInfo = retrieve.getInfo();
-                        if(bookInfo[0].equals("NOPAGEFOUND")) {
-                            //If no such url exists (IE: no such ISBN numbered book)
-                            showError(v, 0);
-                        }
-                        else {
-                            //Boxes properly filled, show confirmation if user wants to post.
-                            showConfirmation(v, bookInfo, priceBox.getText().toString());
-                        }
+                        final Handler handler = new Handler() {
+                            @Override
+                            public void handleMessage(Message msg) {
+                                bookInfo = retrieve.getInfo();
+                                if(bookInfo[0].equals("NOPAGEFOUND")) {
+                                    //If no such url exists (IE: no such ISBN numbered book)
+                                    showError(v, 0);
+                                }
+                                else {
+                                    //Boxes properly filled, show confirmation if user wants to post.
+                                    showConfirmation(v, bookInfo, priceBox.getText().toString());
+                                }
+                                pd.dismiss();
+                            }
+                        };
+                        Thread myThread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                retrieve.run();
+                                try {
+                                    retrieve.join();
+                                }
+                                catch(InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                handler.sendEmptyMessage(0);
+                            }
+                        });
+                        myThread.start();
                     }
                     else {
                         //No network connection
@@ -212,9 +238,12 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         confirm.show();
     }
 
+    //Storing the retrieved book information into the database.
     public static void setBookInfo(String[] retrievedInfo) {
         bookInfo = retrievedInfo;
     }
+
+    //
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

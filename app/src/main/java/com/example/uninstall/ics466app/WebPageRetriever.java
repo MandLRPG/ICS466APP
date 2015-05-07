@@ -1,11 +1,11 @@
 package com.example.uninstall.ics466app;
 
-import android.os.AsyncTask;
+import android.app.ProgressDialog;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
@@ -26,7 +26,6 @@ import java.util.regex.Pattern;
 public class WebPageRetriever extends Thread {
     String isbn;
     String[] bookInfo = {"N/A", "N/A", "N/A", "N/A"};
-    boolean isDone = false;
 
     /*@Override
     protected String[] doInBackground(String... params) {
@@ -35,11 +34,6 @@ public class WebPageRetriever extends Thread {
 
     public void run() {
         getBookInfo("http://www.isbnsearch.org/isbn/" + isbn);
-        isDone = true;
-    }
-
-    public boolean getDone() {
-        return isDone;
     }
 
     public String[] getInfo() {
@@ -67,15 +61,7 @@ public class WebPageRetriever extends Thread {
 
         try {
             URL url = new URL(webURL);
-            /*HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setReadTimeout(10000);
-            connection.setConnectTimeout(15000);
-            connection.setRequestMethod("GET");
-            connection.setDoInput(true);
-            connection.connect();
-            is = connection.getInputStream();
 
-            String contentAsString = readIt(is, 1000);*/
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String readLine;
 
@@ -128,18 +114,4 @@ public class WebPageRetriever extends Thread {
         }
         return bookInfo;
     }
-
-    /*public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
-        Reader reader = null;
-        reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[len];
-        reader.read(buffer);
-        return new String(buffer);
-    }*/
-
-    /*@Override
-    protected void onPostExecute(String[] result) {
-        super.onPostExecute(result);
-        NewPostActivity.setBookInfo(result);
-    }*/
 }

@@ -144,9 +144,6 @@
                     android:background="#ff29906d" />
 
             </LinearLayout>
-
-
         </RelativeLayout>
-
     </ScrollView>
 </RelativeLayout>
