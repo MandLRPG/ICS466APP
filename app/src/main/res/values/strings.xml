@@ -34,6 +34,7 @@
     <string name="cover">&lt;b>Cover Type: &lt;/b></string>
 
     <string-array name="search_list">
+        <item>Select</item>
         <item>ISBN</item>
         <item>Title</item>
         <item>Author</item>

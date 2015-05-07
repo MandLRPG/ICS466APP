@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     Spinner subjects;
     EditText searchBox;
-    String searchType;
+    String searchType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         subjects = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.search_list, android.R.layout.simple_spinner_item);
+        ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.search_list, android.R.layout.simple_spinner_dropdown_item);
         searchBox = (EditText) findViewById(R.id.search_box);
 
         subjects.setAdapter(myArray);
