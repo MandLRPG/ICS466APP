@@ -50,7 +50,7 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
-        //dbManager = new MyDBManager(this, null, null, 1);
+        dbManager = new MyDBManager(this, null, null, 1);
 
         isbnBox.setOnKeyListener(this);
         priceBox.setOnKeyListener(this);
@@ -146,9 +146,10 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
 
     //Add to database
     public void addToDatabase() {
-        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), Float.parseFloat(priceBox.getText().toString()));
+        TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), bookInfo[0], bookInfo[1],
+                bookInfo[2], bookInfo[3], "admin", Float.parseFloat(priceBox.getText().toString()), "2015-05-08 15:00:00");
         dbManager.addTextBook(textBook);
-        dbManager.addUserTextBook(textBook);
+        //dbManager.addUserTextBook(textBook);
     }
 
    /* public void printDatabase(){
@@ -220,7 +221,7 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
         confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //addToDatabase();
+                addToDatabase();
                 //BookSearchFragment web = new BookSearchFragment();
                 //web.printDatabase(dbManager);
 

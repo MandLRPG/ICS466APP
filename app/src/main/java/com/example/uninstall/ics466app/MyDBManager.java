@@ -74,14 +74,38 @@ public class MyDBManager extends SQLiteOpenHelper{
     public void addTextBook(TextBooks textBooks) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_TB_ISBN, textBooks.get_isbn());
-        values.put(COLUMN_TITLE, textBooks.get_price());
+        values.put(COLUMN_TITLE, textBooks.get_title());
         values.put(COLUMN_AUTHOR, textBooks.get_author());
         values.put(COLUMN_EDITION, textBooks.get_edition());
         values.put(COLUMN_BINDING, textBooks.get_binding());
 
+        //SQLiteDatabase db = getWritableDatabase();
+        //Inserts a row into the textbooks database
+        //db.insert(TABLE_TEXTBOOKS, null, values);
+        //db.close();
+    }
+
+    public void addUserTextBook(TextBooks textBooks){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_UR_ISBN, textBooks.get_isbn());
+        values.put(COLUMN_TB_USER, textBooks.get_user());
+        values.put(COLUMN_PRICE, textBooks.get_price());
+        values.put(COLUMN_DATE, textBooks.get_dateAdded());
+
         SQLiteDatabase db = getWritableDatabase();
         //Inserts a row into the textbooks database
-        db.insert(TABLE_TEXTBOOKS, null, values);
+        db.insert(TABLE_USERTEXTBOOKS, null, values);
+        db.close();
+    }
+
+    //Need to fix this later
+    public void addUserInfo(TextBooks textBooks){
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_INFO_USER, textBooks.get_user());
+
+        SQLiteDatabase db = getWritableDatabase();
+        //Inserts a row into the textbooks database
+        db.insert(TABLE_USERINFO, null, values);
         db.close();
     }
 
@@ -106,10 +130,6 @@ public class MyDBManager extends SQLiteOpenHelper{
 
     }
 
-    //Add new row in user textbook table
-    public void addUserTextBook(TextBooks textBook) {
-
-    }
 
     //Delete a user posting from the database
     public void deleteUserTextBook(long ISBN, String user) {

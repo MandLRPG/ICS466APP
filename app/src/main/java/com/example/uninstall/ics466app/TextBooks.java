@@ -16,12 +16,12 @@ public class TextBooks {
 
     private String _user = "";
     private float _price = 0;
-    private Date _dateAdded;
+    private String _dateAdded = "";
 
     public TextBooks() {
     }
 
-    public TextBooks(long isbn, float price) {
+    public TextBooks(long isbn, String title, String author, String edition, String binding, String user, float price, String dateAdded) {
         //Grabs the current date and time
         String dateFormat = "MM-dd HH:mm";
         Calendar current = Calendar.getInstance();
@@ -29,7 +29,13 @@ public class TextBooks {
         sdf.setTimeZone(TimeZone.getDefault());
 
         this._isbn = isbn;
+        this._title = title;
+        this._author = author;
+        this._edition = edition;
+        this._binding = binding;
+        this._user = user;
         this._price = price;
+        this._dateAdded = dateAdded;
         //this._dateAdded = sdf.hashCode();
     }
 
@@ -62,7 +68,7 @@ public class TextBooks {
         return this._price;
     }
 
-    public Date get_dateAdded() {
+    public String get_dateAdded() {
         return this._dateAdded;
     }
 
@@ -96,7 +102,7 @@ public class TextBooks {
         this._price = price;
     }
 
-    public void set_dateAdded(Date dateAdded) {
+    public void set_dateAdded(String dateAdded) {
         this._dateAdded = dateAdded;
     }
 }

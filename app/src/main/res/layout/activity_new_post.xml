@@ -43,6 +43,7 @@
                 android:inputType="number"
                 android:hint="@string/isbn_hint"
                 android:id="@+id/enterISBN"
+                android:maxLength="13"
                 android:layout_below="@+id/textISBN" />
 
             <TextView
