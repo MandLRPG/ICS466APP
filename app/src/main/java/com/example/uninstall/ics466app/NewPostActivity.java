@@ -24,7 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class NewPostActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
+public class NewPostActivity extends ActionBarActivity implements View.OnKeyListener{
 
     //private ProgressBar spinProgress;
 
@@ -33,9 +33,8 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
     long isbnNumber = 0;
-    String department;
     Button cancelButton;
-    TextView errorMsg;
+    TextView emptyISBN, emptyPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,8 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
         //spinProgress.setVisibility(View.GONE);
 
         isbnBox = (EditText) findViewById(R.id.enterISBN);
-        errorMsg = (TextView) findViewById(R.id.error1);
+        emptyISBN = (TextView) findViewById(R.id.error1);
+        emptyPrice = (TextView) findViewById(R.id.error2);
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
@@ -72,12 +72,23 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
-                String isbnString = isbnBox.getText().toString().replace(" ", "");
+                //String isbnString = isbnBox.getText().toString().replace(" ", "");
+
+                if(isbnBox.getText().length() == 0){
+                    emptyISBN.setText("*ISBN must be entered.\n");
+                }
+                else if(priceBox.getText().length() == 0){
+                    emptyPrice.setText("*Price must be entered.\n");
+                }
+                else{
+                    emptyISBN.setText("");
+                    emptyPrice.setText("");
+                }
 
                 try{
-                    long isbnLong = Long.parseLong(isbnString);
+                    //long isbnLong = Long.parseLong(isbnString);
                     final WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
-                    if(networkInfo != null && networkInfo.isConnected()) {
+                    if(networkInfo != null && networkInfo.isConnected() && priceBox.getText().length() != 0) {
                         final ProgressDialog pd = ProgressDialog.show(NewPostActivity.this, "Please Wait...", "Searching...");
                         //do stuff that would save this to database table.
                         final Handler handler = new Handler() {
@@ -110,7 +121,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                         });
                         myThread.start();
                     }
-                    else {
+                    else if(networkInfo == null && !networkInfo.isConnected()){
                         //No network connection
                         showError(v, 2);
                     }
@@ -118,21 +129,10 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 catch (NumberFormatException e){
                     //If a non-number or number with the wrong length (ex:a trillion digits).
                     //Instead of doing this, should restrict the number of numbers that can be typed.
-                    showError(v, 1);
+                    //showError(v, 1);
                 }
             }
         });
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l){
-        //Does something when an item is selected from the list.
-        department = adapterView.getItemAtPosition(i).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView){
-        //When nothing in the list is selected
     }
 
     @Override
@@ -191,10 +191,9 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
             case 0: error.setMessage("No book with such ISBN number.").create();
                     break;
 
-            case 1: error.setMessage("ISBN field is blank or an invalid number was entered.").create();
+            /*case 1: error.setMessage("ISBN field is blank or an invalid number was entered.").create();
                     error.setTitle("Invalid Inputs");
-                    errorMsg.setText("*ISBN must be entered.\n");
-                    break;
+                    break;*/
 
             case 2: error.setMessage("No network connection available.");
 
@@ -216,7 +215,7 @@ public class NewPostActivity extends ActionBarActivity implements AdapterView.On
                 Html.fromHtml(getString(R.string.title)) + bookInfo[0] + "\n\n" +
                 Html.fromHtml(getString(R.string.author)) + bookInfo[1] + "\n\n" +
                 Html.fromHtml(getString(R.string.edition)) + bookInfo[2] + "\n\n" +
-                Html.fromHtml(getString(R.string.cover)) + bookInfo[3]).create();
+                Html.fromHtml(getString(R.string.binding)) + bookInfo[3]).create();
 
         confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override

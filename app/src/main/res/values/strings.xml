@@ -31,7 +31,7 @@
     <string name="title">&lt;b>Title: &lt;/b></string>
     <string name="author">&lt;b>Author(s): &lt;/b></string>
     <string name="edition">&lt;b>Edition: &lt;/b></string>
-    <string name="cover">&lt;b>Cover Type: &lt;/b></string>
+    <string name="binding">&lt;b>Binding: &lt;/b></string>
 
     <string-array name="search_list">
         <item>Select</item>
