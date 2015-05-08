@@ -20,19 +20,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 public class NewPostActivity extends ActionBarActivity implements View.OnKeyListener{
-
-    //private ProgressBar spinProgress;
 
     static String[] bookInfo = {"", "", "", ""};
 
     EditText isbnBox, priceBox, txtBookBox, authorBox;
     MyDBManager dbManager;
-    long isbnNumber = 0;
     Button cancelButton;
     TextView emptyISBN, emptyPrice;
 
@@ -40,9 +35,6 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
-
-        //spinProgress = (ProgressBar)findViewById(R.id.progressSpinner);
-        //spinProgress.setVisibility(View.GONE);
 
         isbnBox = (EditText) findViewById(R.id.enterISBN);
         emptyISBN = (TextView) findViewById(R.id.error1);
@@ -72,36 +64,35 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
                 ConnectivityManager connect = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connect.getActiveNetworkInfo();
 
-                //String isbnString = isbnBox.getText().toString().replace(" ", "");
+                final String isbnNumber = isbnBox.getText().toString();
+                final String bookPrice = priceBox.getText().toString();
 
-                if(isbnBox.getText().length() == 0){
+                //All missing text errors generated here
+                emptyISBN.setText("");
+                emptyPrice.setText("");
+
+                if(isbnNumber.length() == 0){
                     emptyISBN.setText("*ISBN must be entered.\n");
                 }
-                else if(priceBox.getText().length() == 0){
+                if(bookPrice.length() == 0){
                     emptyPrice.setText("*Price must be entered.\n");
                 }
-                else{
-                    emptyISBN.setText("");
-                    emptyPrice.setText("");
-                }
+                if(isbnNumber.length() != 0 && bookPrice.length() != 0) {
+                    final WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnNumber));
 
-                try{
-                    //long isbnLong = Long.parseLong(isbnString);
-                    final WebPageRetriever retrieve = new WebPageRetriever(Long.parseLong(isbnBox.getText().toString()));
-                    if(networkInfo != null && networkInfo.isConnected() && priceBox.getText().length() != 0) {
+                    if (networkInfo != null && networkInfo.isConnected()) {
                         final ProgressDialog pd = ProgressDialog.show(NewPostActivity.this, "Please Wait...", "Searching...");
-                        //do stuff that would save this to database table.
+
                         final Handler handler = new Handler() {
                             @Override
                             public void handleMessage(Message msg) {
                                 bookInfo = retrieve.getInfo();
-                                if(bookInfo[0].equals("NOPAGEFOUND")) {
+                                if (bookInfo[0].equals("NOPAGEFOUND")) {
                                     //If no such url exists (IE: no such ISBN numbered book)
                                     showError(v, 0);
-                                }
-                                else {
-                                    //Boxes properly filled, show confirmation if user wants to post.
-                                    showConfirmation(v, bookInfo, priceBox.getText().toString());
+                                } else {
+                                    //Boxes properly filled, show confirmation if user wants to post
+                                    showConfirmation(v, bookInfo, bookPrice);
                                 }
                                 pd.dismiss();
                             }
@@ -112,24 +103,18 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
                                 retrieve.run();
                                 try {
                                     retrieve.join();
-                                }
-                                catch(InterruptedException e) {
+                                } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                                 handler.sendEmptyMessage(0);
                             }
                         });
                         myThread.start();
-                    }
-                    else if(networkInfo == null && !networkInfo.isConnected()){
+
+                    } else {
                         //No network connection
                         showError(v, 2);
                     }
-                }
-                catch (NumberFormatException e){
-                    //If a non-number or number with the wrong length (ex:a trillion digits).
-                    //Instead of doing this, should restrict the number of numbers that can be typed.
-                    //showError(v, 1);
                 }
             }
         });
