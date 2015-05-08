@@ -39,7 +39,7 @@ public class MyDBManager extends SQLiteOpenHelper{
                 COLUMN_TB_ISBN + " BIGINT(35) PRIMARY KEY ASC, " +
                 COLUMN_TITLE + " VARCHAR(255), " +
                 COLUMN_AUTHOR + " VARCHAR(100), " +
-                COLUMN_EDITION + " FLOAT(2, 1) " +
+                COLUMN_EDITION + " FLOAT(2, 1), " +
                 COLUMN_BINDING + " VARCHAR(10) " +
                 ");";
 
@@ -79,10 +79,10 @@ public class MyDBManager extends SQLiteOpenHelper{
         values.put(COLUMN_EDITION, textBooks.get_edition());
         values.put(COLUMN_BINDING, textBooks.get_binding());
 
-        //SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         //Inserts a row into the textbooks database
-        //db.insert(TABLE_TEXTBOOKS, null, values);
-        //db.close();
+        db.insert(TABLE_TEXTBOOKS, null, values);
+        db.close();
     }
 
     public void addUserTextBook(TextBooks textBooks){
