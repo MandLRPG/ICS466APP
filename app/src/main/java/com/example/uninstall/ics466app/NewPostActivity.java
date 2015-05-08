@@ -276,4 +276,25 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
+        cancelAlert.setTitle("Cancel Posting?");
+        cancelAlert.setMessage("Draft will be deleted.").create();
+        cancelAlert.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        cancelAlert.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //do nothing
+            }
+        });
+        cancelAlert.show();
+    }
 }
