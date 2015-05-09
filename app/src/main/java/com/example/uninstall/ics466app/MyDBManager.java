@@ -33,6 +33,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
+    //Creates the database with the following tables if the database doesn't exist/has a newer version
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createBookTableQuery = "CREATE TABLE " + TABLE_TEXTBOOKS + " (" +
@@ -62,6 +63,8 @@ public class MyDBManager extends SQLiteOpenHelper{
         db.execSQL(createUserTableQuery);
     }
 
+    //When the database verison is changed, this method is called to update the database
+    //Simply deletes all old tables.  Shouldn't do this on an actual database.
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEXTBOOKS);
@@ -70,6 +73,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+    //ALL OF THE METHODS TO ADD ROWS INTO DIFFERENT TABLES
     //Add new row in textbook table
     public void addTextBook(TextBooks textBooks) {
         ContentValues values = new ContentValues();
@@ -85,6 +89,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         //db.close();
     }
 
+    //Add new row into the user-textbook relational table
     public void addUserTextBook(TextBooks textBooks){
         ContentValues values = new ContentValues();
         values.put(COLUMN_UR_ISBN, textBooks.get_isbn());
@@ -98,24 +103,8 @@ public class MyDBManager extends SQLiteOpenHelper{
         db.close();
     }
 
-    //Need to fix this later
-    public void addUserInfo(TextBooks textBooks){
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_INFO_USER, textBooks.get_user());
-
-        SQLiteDatabase db = getWritableDatabase();
-        //Inserts a row into the textbooks database
-        db.insert(TABLE_USERINFO, null, values);
-        db.close();
-    }
-
-    //Delete a textBook from database (probably only use if book is super outdated eg:20 years
-    public void deleteTextBook(long ISBN) {
-        SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN + ";" );
-    }
-
-    //Should have information such as user name, email, tel#, etc.  NOT PASSWORDS though.
+    //Add new row to the users present in the system
+    //Should also have information such as user name, email, tel#, etc.  NOT PASSWORDS though.
     public void addUserInfo(String userName) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_INFO_USER, userName);
@@ -125,17 +114,35 @@ public class MyDBManager extends SQLiteOpenHelper{
         db.close();
     }
 
-    //Only used if a user is no longer supported by the system. (EX: gradated 5 years ago)
-    public void removeUserInfo(String userName) {
-
+    //ALL OF THE METHODS TO DELETE ROWS IN DIFFERENT TABLES
+    //Delete a textBook from database (probably only use if book is super outdated eg:20 years
+    public void deleteTextBook(long ISBN) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_TEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN + ";");
+        db.close();
     }
-
 
     //Delete a user posting from the database
     public void deleteUserTextBook(long ISBN, String user) {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM " + TABLE_USERTEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN +
                 " AND " + COLUMN_TB_ISBN + "=\"" + user + "\";");
+        db.close();
+    }
+
+    //Only used if a user is no longer supported by the system. (EX: gradated 5 years ago)
+    //Should not be called by anything on the device so this method should be depreciated.
+    //Instead, a server-side script should be used to handle this.
+    /*public void removeUserInfo(String userName) {
+
+    }*/
+
+    //ALL OF THE METHODS TO GET ROWS IN DIFFERENT TABLES
+    //Get the information of a row
+    public String[] getRow(String query) {
+        SQLiteDatabase db = getReadableDatabase();
+        db.close();
+        return null;
     }
 
     //To string method for testing
