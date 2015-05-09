@@ -5,7 +5,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
-import android.media.MediaPlayer;
+
+import java.util.ArrayList;
 
 public class MyDBManager extends SQLiteOpenHelper{
 
@@ -44,6 +45,7 @@ public class MyDBManager extends SQLiteOpenHelper{
                 COLUMN_BINDING + " VARCHAR(10) " +
                 ");";
 
+        //Foreign keys prevents creating any destroying of links between tables
         String createUserBookTableQuery = "CREATE TABLE " + TABLE_USERTEXTBOOKS + " (" +
                 COLUMN_UR_ISBN + " BIGINT(13), " +
                 COLUMN_TB_USER + " VARCHAR(50), " +
@@ -139,10 +141,27 @@ public class MyDBManager extends SQLiteOpenHelper{
 
     //ALL OF THE METHODS TO GET ROWS IN DIFFERENT TABLES
     //Get the information of a row
-    public String[] getRow(String query) {
+    public ArrayList getRow(String query) {
+        char i = 0;
+        ArrayList<String> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        while(!c.isAfterLast() && i < 10) {
+            result.add(String.valueOf(c.getLong(0)));
+            result.add(String.valueOf(c.getFloat(1)));
+            result.add(c.getString(2));
+            result.add(c.getString(3));
+            result.add(String.valueOf(c.getFloat(4)));
+            result.add(c.getString(5));
+            c.moveToNext();
+            i++;
+        }
+
+        c.close();
         db.close();
-        return null;
+        return result;
     }
 
     //To string method for testing
@@ -172,6 +191,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()){
             dbString = dbString + c.getString(iISBN) + "\n";
         }
+        c.close();
         db.close();
         return dbString;
     }
