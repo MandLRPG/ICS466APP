@@ -42,7 +42,7 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
         priceBox = (EditText) findViewById(R.id.enterPrice);
         txtBookBox = (EditText) findViewById(R.id.enterTxtBook);
         authorBox = (EditText) findViewById(R.id.enterAuthor);
-        dbManager = new MyDBManager(this, null, null, 1);
+        dbManager = new MyDBManager(this, null, null, 2);
 
         isbnBox.setOnKeyListener(this);
         priceBox.setOnKeyListener(this);
@@ -134,7 +134,7 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
         TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), bookInfo[0], bookInfo[1],
                 bookInfo[2], bookInfo[3], "admin", Float.parseFloat(priceBox.getText().toString()), "2015-05-08 15:00:00");
         dbManager.addTextBook(textBook);
-        //dbManager.addUserTextBook(textBook);
+        dbManager.addUserTextBook(textBook);
     }
 
    /* public void printDatabase(){
