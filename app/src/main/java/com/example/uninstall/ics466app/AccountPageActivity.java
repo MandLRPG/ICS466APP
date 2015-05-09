@@ -1,18 +1,34 @@
 package com.example.uninstall.ics466app;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 
 public class AccountPageActivity extends ActionBarActivity {
+
+    MyDBManager dbManager;
+    ArrayList<String> postInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ProgressDialog pd = ProgressDialog.show(AccountPageActivity.this, "Please Wait...", "Loading...");
         setContentView(R.layout.activity_account_page);
+        dbManager = new MyDBManager(this, null, null, 2);
+
+        //This statement should only change based off of who the user is.  Implement user switching later
+        postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
+                "FROM userBookInfo " +
+                "INNER JOIN bookInfo " +
+                "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
+                "WHERE tb_user=rinnsio");
+        pd.dismiss();
     }
 
 

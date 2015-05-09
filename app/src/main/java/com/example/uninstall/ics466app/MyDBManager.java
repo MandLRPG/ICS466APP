@@ -141,7 +141,7 @@ public class MyDBManager extends SQLiteOpenHelper{
 
     //ALL OF THE METHODS TO GET ROWS IN DIFFERENT TABLES
     //Get the information of a row
-    public ArrayList getRow(String query) {
+    public ArrayList getRows(String query) {
         char i = 0;
         ArrayList<String> result = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
