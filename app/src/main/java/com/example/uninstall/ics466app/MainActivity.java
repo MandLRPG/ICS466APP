@@ -26,6 +26,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
+    public static String userName = "rinnsio";
     Spinner subjects;
     EditText searchBox;
     String searchType = "";
@@ -86,10 +87,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 String searchText = searchBox.getText().toString();
                 if(searchText.contentEquals("whatever we have in our database")){
 
-                    //searchBox.setText("");
                 }
                 else{
-                    //searchBox.setText("");
                     FragmentManager fragmentManager = getSupportFragmentManager();
 
                     // avoid overlap fragment
