@@ -27,7 +27,7 @@ public class AccountPageActivity extends ActionBarActivity {
                 "FROM userBookInfo " +
                 "INNER JOIN bookInfo " +
                 "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
-                "WHERE tb_user=rinnsio");
+                "WHERE tb_user=rinnsio;");
         pd.dismiss();
     }
 
