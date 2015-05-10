@@ -2,6 +2,9 @@ package com.example.uninstall.ics466app;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,12 +17,15 @@ public class AccountPageActivity extends ActionBarActivity {
 
     MyDBManager dbManager;
     ArrayList<String> postInfo;
+    Fragment fragment;
 
     @Override
+    @SuppressWarnings("unchecked")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ProgressDialog pd = ProgressDialog.show(AccountPageActivity.this, "Please Wait...", "Loading...");
         setContentView(R.layout.activity_account_page);
+
         dbManager = new MyDBManager(this, null, null, 2);
 
         //This statement should only change based off of who the user is.  Implement user switching later
@@ -27,7 +33,23 @@ public class AccountPageActivity extends ActionBarActivity {
                 "FROM userBookInfo " +
                 "INNER JOIN bookInfo " +
                 "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
-                "WHERE tb_user=rinnsio;");
+                "WHERE tb_user=\'"+ MainActivity.userName + "\'");
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(postInfo.size() == 0) {
+            fragment = new NoResultFragment();
+        }
+        else {
+            fragment = new BookSearchFragment();
+            Bundle args = new Bundle();
+            args.putStringArrayList("array", postInfo);
+            fragment.setArguments(args);
+        }
+
+        fragmentTransaction.add(R.id.account_fragment, fragment);
+        fragmentTransaction.commit();
         pd.dismiss();
     }
 
