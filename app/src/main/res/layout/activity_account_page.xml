@@ -25,7 +25,7 @@
                 android:id="@+id/listings"
                 android:layout_centerHorizontal="true"/>
 
-            <fragment
+<!--            <fragment
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:name="com.example.uninstall.ics466app.BookSearchFragment"
@@ -33,7 +33,14 @@
                 android:layout_marginTop="5sp"
                 android:layout_below="@+id/listings"
                 android:layout_centerHorizontal="true"
-                tools:layout="@layout/book_search_fragment" />
+                tools:layout="@layout/book_search_fragment" /> -->
+
+            <FrameLayout
+                android:id="@+id/account_fragment"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/listings"/>
 
         </RelativeLayout>
 
