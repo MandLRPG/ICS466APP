@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="No result is found."
+            android:text="No posts found."
             android:gravity="center|top"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="290dp"
