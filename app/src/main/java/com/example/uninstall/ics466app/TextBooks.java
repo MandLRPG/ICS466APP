@@ -21,6 +21,14 @@ public class TextBooks {
     public TextBooks() {
     }
 
+    public TextBooks(long isbn, String title, String author, String edition, String binding) {
+        this._isbn = isbn;
+        this._title = title;
+        this._author = author;
+        this._edition = edition;
+        this._binding = binding;
+    }
+
     public TextBooks(long isbn, String title, String author, String edition, String binding, String user, float price, String dateAdded) {
         //Grabs the current date and time
         String dateFormat = "MM-dd HH:mm";
