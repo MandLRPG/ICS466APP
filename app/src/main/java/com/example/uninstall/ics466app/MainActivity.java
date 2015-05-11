@@ -36,6 +36,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MyDBManager db = new MyDBManager(this, null, null, 2);
+        if(!db.getUserInfo(userName)) {
+            db.addUserInfo(userName);
+        }
+
         subjects = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter myArray = ArrayAdapter.createFromResource(this, R.array.search_list, android.R.layout.simple_spinner_dropdown_item);
         searchBox = (EditText) findViewById(R.id.search_box);

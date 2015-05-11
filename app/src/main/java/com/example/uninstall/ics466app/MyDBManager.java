@@ -164,6 +164,16 @@ public class MyDBManager extends SQLiteOpenHelper{
         return result;
     }
 
+    public boolean getUserInfo(String userName) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT info_user FROM userInfo WHERE info_user=\'" + userName + "\'", null);
+        c.moveToFirst();
+        if(c.isAfterLast()) {
+            return false;
+        }
+        return true;
+    }
+
     //To string method for testing
     public String textbookToString() {
         String dbString = "";
