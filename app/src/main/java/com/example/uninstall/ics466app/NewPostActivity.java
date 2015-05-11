@@ -245,11 +245,6 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
             case R.id.home_page:
                 finish();
                 return true;
-            case R.id.account_page:
-                Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
-                startActivity(accountPage);
-                finish();
-                return true;
             case R.id.action_settings:
                 return true;
             default:

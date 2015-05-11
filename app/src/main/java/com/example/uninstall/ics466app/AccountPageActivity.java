@@ -73,11 +73,6 @@ public class AccountPageActivity extends ActionBarActivity {
             case R.id.home_page:
                 finish();
                 return true;
-            case R.id.post_page:
-                Intent postPage = new Intent(getApplicationContext(), NewPostActivity.class);
-                startActivity(postPage);
-                finish();
-                return true;
             case R.id.action_settings:
                 return true;
             default:
