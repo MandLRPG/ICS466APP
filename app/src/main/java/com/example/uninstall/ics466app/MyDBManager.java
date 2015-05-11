@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MyDBManager extends SQLiteOpenHelper{
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "bookInfo.db";
 
     public static final String TABLE_TEXTBOOKS = "bookInfo";
@@ -26,7 +26,7 @@ public class MyDBManager extends SQLiteOpenHelper{
     public static final String COLUMN_UR_ISBN = "ur_isbn";
     public static final String COLUMN_TB_USER = "tb_user";
     public static final String COLUMN_PRICE = "price";
-    public static final String COLUMN_DATE = "dateAdded";
+    //public static final String COLUMN_DATE = "dateAdded";
 
     public static final String COLUMN_INFO_USER = "info_user";
 
@@ -41,7 +41,7 @@ public class MyDBManager extends SQLiteOpenHelper{
                 COLUMN_TB_ISBN + " BIGINT(35) PRIMARY KEY ASC, " +
                 COLUMN_TITLE + " VARCHAR(255), " +
                 COLUMN_AUTHOR + " VARCHAR(100), " +
-                COLUMN_EDITION + " FLOAT(2, 1), " +
+                COLUMN_EDITION + " VARCHAR(4), " +
                 COLUMN_BINDING + " VARCHAR(10) " +
                 ");";
 
@@ -50,7 +50,7 @@ public class MyDBManager extends SQLiteOpenHelper{
                 COLUMN_UR_ISBN + " BIGINT(13), " +
                 COLUMN_TB_USER + " VARCHAR(50), " +
                 COLUMN_PRICE + " FLOAT(3, 2), " +
-                COLUMN_DATE + " DATE, " +
+                //COLUMN_DATE + " DATE, " +
                 "PRIMARY KEY(" + COLUMN_UR_ISBN + ", " + COLUMN_TB_USER + "), " +
                 "FOREIGN KEY(" + COLUMN_UR_ISBN + ") REFERENCES " + TABLE_TEXTBOOKS + " (" + COLUMN_TB_ISBN + "), " +
                 "FOREIGN KEY(" + COLUMN_TB_USER + ") REFERENCES " + TABLE_USERINFO + " (" + COLUMN_INFO_USER + ") " +
@@ -97,7 +97,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         values.put(COLUMN_UR_ISBN, textBooks.get_isbn());
         values.put(COLUMN_TB_USER, textBooks.get_user());
         values.put(COLUMN_PRICE, textBooks.get_price());
-        values.put(COLUMN_DATE, textBooks.get_dateAdded());
+        //values.put(COLUMN_DATE, textBooks.get_dateAdded());
 
         SQLiteDatabase db = getWritableDatabase();
         //Inserts a row into the textbooks database
@@ -127,8 +127,8 @@ public class MyDBManager extends SQLiteOpenHelper{
     //Delete a user posting from the database
     public void deleteUserTextBook(long ISBN, String user) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_USERTEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN +
-                " AND " + COLUMN_TB_ISBN + "=\"" + user + "\";");
+        db.execSQL("DELETE FROM " + TABLE_USERTEXTBOOKS + " WHERE " + COLUMN_UR_ISBN + "=" + ISBN +
+                " AND " + COLUMN_TB_USER + "=\"" + user + "\";");
         db.close();
     }
 
@@ -153,7 +153,7 @@ public class MyDBManager extends SQLiteOpenHelper{
             result.add(String.valueOf(c.getFloat(1)));
             result.add(c.getString(2));
             result.add(c.getString(3));
-            result.add(String.valueOf(c.getFloat(4)));
+            result.add(c.getString(4));
             result.add(c.getString(5));
             c.moveToNext();
             i++;
@@ -164,13 +164,41 @@ public class MyDBManager extends SQLiteOpenHelper{
         return result;
     }
 
-    public boolean getUserInfo(String userName) {
+    public String[] getTxtBookRow(long isbnNumber) {
+        String[] bookInfo = {"", "", "", ""};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT title, author, edition, binding " +
+                "FROM bookInfo WHERE tb_isbn=" + isbnNumber, null);
+        c.moveToFirst();
+        bookInfo[0] = c.getString(0);
+        bookInfo[1] = c.getString(1);
+        bookInfo[2] = c.getString(2);
+        bookInfo[3] = c.getString(3);
+        c.close();
+        return bookInfo;
+    }
+
+    public boolean userExists(String userName) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT info_user FROM userInfo WHERE info_user=\'" + userName + "\'", null);
         c.moveToFirst();
         if(c.isAfterLast()) {
+            c.close();
             return false;
         }
+        c.close();
+        return true;
+    }
+
+    public boolean txtBookExists(long isbnNumber) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT tb_isbn FROM bookInfo WHERE tb_isbn=" + isbnNumber, null);
+        c.moveToFirst();
+        if(c.isAfterLast()) {
+            c.close();
+            return false;
+        }
+        c.close();
         return true;
     }
 

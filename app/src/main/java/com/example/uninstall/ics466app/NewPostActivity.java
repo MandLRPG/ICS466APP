@@ -83,34 +83,45 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
                     if (networkInfo != null && networkInfo.isConnected()) {
                         final ProgressDialog pd = ProgressDialog.show(NewPostActivity.this, "Please Wait...", "Searching...");
 
-                        final Handler handler = new Handler() {
-                            @Override
-                            public void handleMessage(Message msg) {
-                                bookInfo = retrieve.getInfo();
-                                if (bookInfo[0].equals("NOPAGEFOUND")) {
-                                    //If no such url exists (IE: no such ISBN numbered book)
-                                    showError(v, 0);
-                                } else {
-                                    //Boxes properly filled, show confirmation if user wants to post
-                                    showConfirmation(v, bookInfo, bookPrice);
+                        //If book doesn't already exist in database, pull it up from the web
+                        //AGAIN, this should normally be done server-side
+                        if(!dbManager.txtBookExists(Long.parseLong(isbnBox.getText().toString()))) {
+                            final Handler handler = new Handler() {
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    bookInfo = retrieve.getInfo();
+                                    if (bookInfo[0].equals("NOPAGEFOUND")) {
+                                        //If no such url exists (IE: no such ISBN numbered book)
+                                        showError(v, 0);
+                                    } else {
+                                        //Boxes properly filled, show confirmation if user wants to post
+                                        TextBooks newBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), bookInfo[0], bookInfo[1], bookInfo[2], bookInfo[3]);
+                                        dbManager.addTextBook(newBook);
+                                        showConfirmation(v, bookInfo, bookPrice);
+                                    }
+                                    pd.dismiss();
                                 }
-                                pd.dismiss();
-                            }
-                        };
-                        Thread myThread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                retrieve.run();
-                                try {
-                                    retrieve.join();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                            };
+                            Thread myThread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    retrieve.run();
+                                    try {
+                                        retrieve.join();
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    handler.sendEmptyMessage(0);
                                 }
-                                handler.sendEmptyMessage(0);
-                            }
-                        });
-                        myThread.start();
-
+                            });
+                            myThread.start();
+                        }
+                        //Else just pull the book info from the database
+                        else {
+                            bookInfo = dbManager.getTxtBookRow(Long.parseLong(isbnBox.getText().toString()));
+                            showConfirmation(v, bookInfo, bookPrice);
+                            pd.dismiss();
+                        }
                     } else {
                         //No network connection
                         showError(v, 2);
@@ -132,22 +143,9 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
     //Add to database
     public void addToDatabase() {
         TextBooks textBook = new TextBooks(Long.parseLong(isbnBox.getText().toString()), bookInfo[0], bookInfo[1],
-                bookInfo[2], bookInfo[3], "admin", Float.parseFloat(priceBox.getText().toString()), "2015-05-08 15:00:00");
-        dbManager.addTextBook(textBook);
+                bookInfo[2], bookInfo[3], MainActivity.userName, Float.parseFloat(priceBox.getText().toString()), "2015-05-08 15:00:00");
         dbManager.addUserTextBook(textBook);
     }
-
-   /* public void printDatabase(){
-        String dbString = dbManager.textbookToString();
-        View inflatedView = getLayoutInflater().inflate(R.layout.book_search_fragment, null);
-        Button textbook = (Button) inflatedView.findViewById(R.id.button1);
-        cancelButton.setText(dbString);
-        textbook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-    }*/
 
     public void showAlert(View view) {
         AlertDialog.Builder cancelAlert = new AlertDialog.Builder(this);
@@ -207,9 +205,6 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 addToDatabase();
-                //BookSearchFragment web = new BookSearchFragment();
-                //web.printDatabase(dbManager);
-
                 finish();
             }
         });

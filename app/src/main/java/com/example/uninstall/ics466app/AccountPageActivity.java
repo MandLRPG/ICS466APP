@@ -26,7 +26,7 @@ public class AccountPageActivity extends ActionBarActivity {
         ProgressDialog pd = ProgressDialog.show(AccountPageActivity.this, "Please Wait...", "Loading...");
         setContentView(R.layout.activity_account_page);
 
-        dbManager = new MyDBManager(this, null, null, 2);
+        dbManager = new MyDBManager(this, null, null, 3);
 
         //This statement should only change based off of who the user is.  Implement user switching later
         postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
