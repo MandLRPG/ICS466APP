@@ -34,10 +34,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     Spinner subjects;
     EditText searchBox;
     String searchType = "";
+    String searchText = "";
     MyDBManager dbManager;
     ArrayList<String> postInfo;
     Fragment newFragment;
-    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,50 +97,63 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             @Override
             public void onClick(View v) {
                 ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
-                dbManager = new MyDBManager(MainActivity.this, null, null, 3);
-
-                // get the text entered by user
-                String searchText = searchBox.getText().toString();
-
-                //This statement should only change based off of who the user is.  Implement user switching later
-                postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
-                        "FROM userBookInfo " +
-                        "INNER JOIN bookInfo " +
-                        "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
-                        "WHERE bookInfo.tb_isbn=" + searchText);
-
                 FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                if(searchText.contentEquals("data")){
-                    // avoid overlap fragment
-                    /*if(fragmentManager.getBackStackEntryCount() > 0)
-                    {
-                        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    }*/
-
-                    newFragment = new BookSearchFragment();
-
-                    fragmentTransaction = fragmentManager.beginTransaction();
+                if(searchText.contentEquals("") || postInfo.size() == 0) {
+                    newFragment = new NoResultFragment();
                     // replace the current fragment in search_fragment FrameLayout with NoResultFragment
                     fragmentTransaction.replace(R.id.search_fragment, newFragment);
-                    //fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
                 }
                 else{
-                    newFragment = new NoResultFragment();
+                    newFragment = new BookSearchFragment();
 
-                    fragmentTransaction = fragmentManager.beginTransaction();
+                    Bundle args = new Bundle();
+                    args.putStringArrayList("array", postInfo);
+                    newFragment.setArguments(args);
                     // replace the current fragment in search_fragment FrameLayout with NoResultFragment
                     fragmentTransaction.replace(R.id.search_fragment, newFragment);
-                    fragmentTransaction.commit();
                 }
+                fragmentTransaction.commit();
+                pd.dismiss();
             }
         });
     }
+
     @Override
+    @SuppressWarnings("unchecked")
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         //Does something when a button is chosen
+        dbManager = new MyDBManager(MainActivity.this, null, null, 3);
+        // get the text entered by user
+        searchText = searchBox.getText().toString();
+
         searchType = adapterView.getItemAtPosition(i).toString();
+        if(searchType.equals("ISBN")){
+            long searchISBN = Long.parseLong(searchText);
+            //This statement should only change based off of who the user is.  Implement user switching later
+            postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
+                    "FROM userBookInfo " +
+                    "INNER JOIN bookInfo " +
+                    "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
+                    "WHERE bookInfo.tb_isbn=" + searchISBN);
+        }
+        else if(searchType.equals("Title")){
+            //This statement should only change based off of who the user is.  Implement user switching later
+            postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
+                    "FROM userBookInfo " +
+                    "INNER JOIN bookInfo " +
+                    "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
+                    "WHERE bookInfo.title LIKE \'%" + searchText + "%\' COLLATE NOCASE");
+        }
+        else if(searchType.equals("Author")){
+            //This statement should only change based off of who the user is.  Implement user switching later
+            postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
+                    "FROM userBookInfo " +
+                    "INNER JOIN bookInfo " +
+                    "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
+                    "WHERE bookInfo.author LIKE '%" + searchText + "%\' COLLATE NOCASE");
+        }
     }
 
     @Override
