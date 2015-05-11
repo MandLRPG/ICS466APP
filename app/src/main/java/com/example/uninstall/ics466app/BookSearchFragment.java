@@ -4,6 +4,9 @@ package com.example.uninstall.ics466app;
  * Created by uninstall on 3/20/15.
  */
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -59,7 +62,7 @@ public class BookSearchFragment extends Fragment{
                 textBook10.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(9);
                     }
                 });
 
@@ -69,7 +72,7 @@ public class BookSearchFragment extends Fragment{
                 textBook9.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(8);
                     }
                 });
 
@@ -79,7 +82,7 @@ public class BookSearchFragment extends Fragment{
                 textBook8.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(7);
                     }
                 });
 
@@ -89,7 +92,7 @@ public class BookSearchFragment extends Fragment{
                 textBook7.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(6);
                     }
                 });
 
@@ -99,7 +102,7 @@ public class BookSearchFragment extends Fragment{
                 textBook6.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(5);
                     }
                 });
 
@@ -109,7 +112,7 @@ public class BookSearchFragment extends Fragment{
                 textBook5.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(4);
                     }
                 });
 
@@ -119,7 +122,7 @@ public class BookSearchFragment extends Fragment{
                 textBook4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(3);
                     }
                 });
 
@@ -129,7 +132,7 @@ public class BookSearchFragment extends Fragment{
                 textBook3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(2);
                     }
                 });
 
@@ -139,7 +142,7 @@ public class BookSearchFragment extends Fragment{
                 textBook2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(1);
                     }
                 });
 
@@ -149,10 +152,29 @@ public class BookSearchFragment extends Fragment{
                 textBook1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        produceDetailedPage(0);
                     }
                 });
         }
         return view;
+    }
+
+    public void produceDetailedPage(int i) {
+        Intent pageDetail = new Intent(getActivity(), PageDetailsActivity.class);
+        Bundle b = new Bundle();
+
+        b.putString("title", userBookInfo.get(2+6*i));
+        b.putString("price", userBookInfo.get(1+6*i));
+        b.putString("condition", "condition");
+        b.putString("isbn", userBookInfo.get(0+6*i));
+        b.putString("author", userBookInfo.get(3+6*i));
+        b.putString("edition", userBookInfo.get(4+6*i));
+        b.putString("binding", userBookInfo.get(5+6*i));
+        b.putString("expire", "some date");
+
+        pageDetail.putExtras(b);
+
+        getActivity().startActivity(pageDetail);
+        getActivity().finish();
     }
 }

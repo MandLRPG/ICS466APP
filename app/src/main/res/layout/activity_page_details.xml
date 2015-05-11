@@ -15,6 +15,166 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/titleDesc"
+                android:textStyle="bold"
+                android:id="@+id/titleText"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title"
+                android:textSize="22sp"
+                android:layout_below="@+id/titleText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/priceDesc"
+                android:textStyle="bold"
+                android:id="@+id/priceText"
+                android:layout_below="@id/title"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/price"
+                android:textSize="22sp"
+                android:layout_below="@+id/priceText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/conditionDesc"
+                android:textStyle="bold"
+                android:id="@+id/conditionText"
+                android:layout_below="@id/price"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/condition"
+                android:textSize="22sp"
+                android:layout_below="@+id/conditionText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/isbnDesc"
+                android:textStyle="bold"
+                android:id="@+id/isbnText"
+                android:layout_below="@id/condition"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/isbn"
+                android:textSize="22sp"
+                android:layout_below="@+id/isbnText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/authorDesc"
+                android:textStyle="bold"
+                android:id="@+id/authorText"
+                android:layout_below="@id/isbn"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/author"
+                android:textSize="22sp"
+                android:layout_below="@+id/authorText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/editionDesc"
+                android:textStyle="bold"
+                android:id="@+id/editionText"
+                android:layout_below="@id/author"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edition"
+                android:textSize="22sp"
+                android:layout_below="@+id/editionText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/bindingDesc"
+                android:textStyle="bold"
+                android:id="@+id/bindingText"
+                android:layout_below="@id/edition"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/binding"
+                android:textSize="22sp"
+                android:layout_below="@+id/bindingText"
+                android:layout_marginBottom="10sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="@string/expDesc"
+                android:textStyle="bold"
+                android:id="@+id/expText"
+                android:layout_below="@id/binding"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/exp"
+                android:textSize="22sp"
+                android:layout_below="@+id/expText"
+                android:layout_marginBottom="10sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="67sp"
+                android:orientation="horizontal"
+                android:layout_below="@id/exp">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/back"
+                    android:textSize="23sp"
+                    android:id="@+id/deleteButton"
+                    android:layout_weight="0.5"/>
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/edit"
+                    android:textSize="23sp"
+                    android:id="@+id/editButton"
+                    android:layout_weight="0.5"/>
+            </LinearLayout>
+
         </RelativeLayout>
 
     </ScrollView>

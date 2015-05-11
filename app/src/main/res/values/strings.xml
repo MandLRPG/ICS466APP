@@ -35,8 +35,9 @@
 
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="back">Back</string>
     <string name="titleDesc">TITLE: </string>
-    <string name="priceDesc">PRICE: $</string>
+    <string name="priceDesc">POSTING PRICE: $</string>
     <string name="conditionDesc">CONDITION: </string>
     <string name="isbnDesc">ISBN: </string>
     <string name="authorDesc">AUTHOR: </string>
