@@ -90,34 +90,29 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             // Add the fragment to the search_fragment FrameLayout
             getSupportFragmentManager().beginTransaction().add(R.id.search_fragment, firstFragment).commit();
         }
+    }
 
-        // Go Button
-        Button goButton = (Button) findViewById(R.id.search_button);
-        goButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    public void goButton(View view) {
+        ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                if(searchText.contentEquals("") || postInfo.size() == 0) {
-                    newFragment = new NoResultFragment();
-                    // replace the current fragment in search_fragment FrameLayout with NoResultFragment
-                    fragmentTransaction.replace(R.id.search_fragment, newFragment);
-                }
-                else{
-                    newFragment = new BookSearchFragment();
+        if(searchText.contentEquals("") || postInfo.size() == 0) {
+            newFragment = new NoResultFragment();
+            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+            fragmentTransaction.replace(R.id.search_fragment, newFragment);
+        }
+        else{
+            newFragment = new BookSearchFragment();
 
-                    Bundle args = new Bundle();
-                    args.putStringArrayList("array", postInfo);
-                    newFragment.setArguments(args);
-                    // replace the current fragment in search_fragment FrameLayout with NoResultFragment
-                    fragmentTransaction.replace(R.id.search_fragment, newFragment);
-                }
-                fragmentTransaction.commit();
-                pd.dismiss();
-            }
-        });
+            Bundle args = new Bundle();
+            args.putStringArrayList("array", postInfo);
+            newFragment.setArguments(args);
+            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+            fragmentTransaction.replace(R.id.search_fragment, newFragment);
+        }
+        fragmentTransaction.commit();
+        pd.dismiss();
     }
 
     @Override

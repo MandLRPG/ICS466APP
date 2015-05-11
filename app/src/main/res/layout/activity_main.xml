@@ -78,6 +78,7 @@
                     android:layout_weight="0.17"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
+                    android:onClick="goButton"
                     android:text="GO!"
                     android:background="#ff29906d"
                     android:textColor="#ffffffff" />
