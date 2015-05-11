@@ -90,24 +90,31 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             public void onClick(View v) {
                 // get the text entered by user
                 String searchText = searchBox.getText().toString();
-                if(searchText.contentEquals("whatever we have in our database")){
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                Fragment newFragment;
+                FragmentTransaction fragmentTransaction;
 
-                }
-                else{
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-
+                if(searchText.contentEquals("data")){
                     // avoid overlap fragment
-                    if(fragmentManager.getBackStackEntryCount() > 0)
+                    /*if(fragmentManager.getBackStackEntryCount() > 0)
                     {
                         fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    }
+                    }*/
 
-                    Fragment noResult = new NoResultFragment();
+                    newFragment = new BookSearchFragment();
 
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction = fragmentManager.beginTransaction();
                     // replace the current fragment in search_fragment FrameLayout with NoResultFragment
-                    fragmentTransaction.replace(R.id.search_fragment, noResult);
-                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.replace(R.id.search_fragment, newFragment);
+                    //fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+                else{
+                    newFragment = new NoResultFragment();
+
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+                    fragmentTransaction.replace(R.id.search_fragment, newFragment);
                     fragmentTransaction.commit();
                 }
             }
