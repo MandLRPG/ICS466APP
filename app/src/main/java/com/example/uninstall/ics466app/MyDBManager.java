@@ -82,7 +82,7 @@ public class MyDBManager extends SQLiteOpenHelper{
         values.put(COLUMN_TB_ISBN, textBooks.get_isbn());
         values.put(COLUMN_TITLE, textBooks.get_title());
         values.put(COLUMN_AUTHOR, textBooks.get_author());
-        values.put(COLUMN_EDITION, textBooks.get_edition());
+        values.put(COLUMN_EDITION, Float.parseFloat(textBooks.get_edition()));
         values.put(COLUMN_BINDING, textBooks.get_binding());
 
         SQLiteDatabase db = getWritableDatabase();
@@ -127,8 +127,8 @@ public class MyDBManager extends SQLiteOpenHelper{
     //Delete a user posting from the database
     public void deleteUserTextBook(long ISBN, String user) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_USERTEXTBOOKS + " WHERE " + COLUMN_TB_ISBN + "=" + ISBN +
-                " AND " + COLUMN_TB_ISBN + "=\"" + user + "\";");
+        db.execSQL("DELETE FROM " + TABLE_USERTEXTBOOKS + " WHERE " + COLUMN_UR_ISBN + "=" + ISBN +
+                " AND " + COLUMN_TB_USER + "=\"" + user + "\";");
         db.close();
     }
 
@@ -164,13 +164,41 @@ public class MyDBManager extends SQLiteOpenHelper{
         return result;
     }
 
-    public boolean getUserInfo(String userName) {
+    public String[] getTxtBookRow(long isbnNumber) {
+        String[] bookInfo = {"", "", "", ""};
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT title, author, edition, binding " +
+                "FROM bookInfo WHERE tb_isbn=" + isbnNumber, null);
+        c.moveToFirst();
+        bookInfo[0] = c.getString(0);
+        bookInfo[1] = c.getString(1);
+        bookInfo[2] = String.valueOf(c.getFloat(2));
+        bookInfo[3] = c.getString(3);
+        c.close();
+        return bookInfo;
+    }
+
+    public boolean userExists(String userName) {
         SQLiteDatabase db = getReadableDatabase();
         Cursor c = db.rawQuery("SELECT info_user FROM userInfo WHERE info_user=\'" + userName + "\'", null);
         c.moveToFirst();
         if(c.isAfterLast()) {
+            c.close();
             return false;
         }
+        c.close();
+        return true;
+    }
+
+    public boolean txtBookExists(long isbnNumber) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT tb_isbn FROM bookInfo WHERE tb_isbn=" + isbnNumber, null);
+        c.moveToFirst();
+        if(c.isAfterLast()) {
+            c.close();
+            return false;
+        }
+        c.close();
         return true;
     }
 
