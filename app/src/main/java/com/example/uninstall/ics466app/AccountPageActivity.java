@@ -33,7 +33,7 @@ public class AccountPageActivity extends ActionBarActivity {
                 "FROM userBookInfo " +
                 "INNER JOIN bookInfo " +
                 "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
-                "WHERE tb_user=\'"+ MainActivity.userName + "\'");
+                "WHERE tb_user=\'" + MainActivity.userName + "\'");
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
