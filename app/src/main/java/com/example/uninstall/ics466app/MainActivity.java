@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyDBManager db = new MyDBManager(this, null, null, 2);
+        MyDBManager db = new MyDBManager(this, null, null, 3);
         if(!db.userExists(userName)) {
             db.addUserInfo(userName);
         }
