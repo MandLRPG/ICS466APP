@@ -92,38 +92,13 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
     }
 
-    public void goButton(View view) {
-        ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        if(searchText.contentEquals("") || postInfo.size() == 0) {
-            newFragment = new NoResultFragment();
-            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
-            fragmentTransaction.replace(R.id.search_fragment, newFragment);
-        }
-        else{
-            newFragment = new BookSearchFragment();
-
-            Bundle args = new Bundle();
-            args.putStringArrayList("array", postInfo);
-            newFragment.setArguments(args);
-            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
-            fragmentTransaction.replace(R.id.search_fragment, newFragment);
-        }
-        fragmentTransaction.commit();
-        pd.dismiss();
-    }
-
-    @Override
     @SuppressWarnings("unchecked")
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+    public void goButton(View view) {
         //Does something when a button is chosen
         dbManager = new MyDBManager(MainActivity.this, null, null, 3);
         // get the text entered by user
         searchText = searchBox.getText().toString();
 
-        searchType = adapterView.getItemAtPosition(i).toString();
         if(searchType.equals("ISBN")){
             long searchISBN = Long.parseLong(searchText);
             //This statement should only change based off of who the user is.  Implement user switching later
@@ -149,6 +124,32 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                     "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
                     "WHERE bookInfo.author LIKE '%" + searchText + "%\' COLLATE NOCASE");
         }
+
+        ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(searchText.contentEquals("") || postInfo.size() == 0) {
+            newFragment = new NoResultFragment();
+            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+            fragmentTransaction.replace(R.id.search_fragment, newFragment);
+        }
+        else{
+            newFragment = new BookSearchFragment();
+
+            Bundle args = new Bundle();
+            args.putStringArrayList("array", postInfo);
+            newFragment.setArguments(args);
+            // replace the current fragment in search_fragment FrameLayout with NoResultFragment
+            fragmentTransaction.replace(R.id.search_fragment, newFragment);
+        }
+        fragmentTransaction.commit();
+        pd.dismiss();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        searchType = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override
