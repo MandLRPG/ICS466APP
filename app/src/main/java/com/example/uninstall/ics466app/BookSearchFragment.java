@@ -21,10 +21,6 @@ public class BookSearchFragment extends Fragment{
     ArrayList<String> userBookInfo;
     int numPostings = 0;
 
-    public BookSearchFragment() {
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(args != null) {
@@ -56,7 +52,7 @@ public class BookSearchFragment extends Fragment{
         textBook10.setVisibility(View.GONE);
 
         switch(numPostings) {
-            case 0:
+            case 10:
                 textBook10.setVisibility(View.VISIBLE);
                 textBook10.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -65,7 +61,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 1:
+            case 9:
                 textBook9.setVisibility(View.VISIBLE);
                 textBook9.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,7 +70,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 2:
+            case 8:
                 textBook8.setVisibility(View.VISIBLE);
                 textBook8.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -83,7 +79,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 3:
+            case 7:
                 textBook7.setVisibility(View.VISIBLE);
                 textBook7.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -92,7 +88,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 4:
+            case 6:
                 textBook6.setVisibility(View.VISIBLE);
                 textBook6.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,7 +106,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 6:
+            case 4:
                 textBook4.setVisibility(View.VISIBLE);
                 textBook4.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -119,7 +115,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 7:
+            case 3:
                 textBook3.setVisibility(View.VISIBLE);
                 textBook3.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -128,7 +124,7 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 8:
+            case 2:
                 textBook2.setVisibility(View.VISIBLE);
                 textBook2.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -137,8 +133,9 @@ public class BookSearchFragment extends Fragment{
                     }
                 });
 
-            case 9:
+            case 1:
                 textBook1.setVisibility(View.VISIBLE);
+                textBook1.setText(userBookInfo.get(2));
                 textBook1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
