@@ -1,5 +1,7 @@
 package com.example.uninstall.ics466app;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +25,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemSelectedListener, View.OnKeyListener{
 
@@ -30,6 +34,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     Spinner subjects;
     EditText searchBox;
     String searchType = "";
+    MyDBManager dbManager;
+    ArrayList<String> postInfo;
+    Fragment newFragment;
+    FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,11 +96,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         goButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                ProgressDialog pd = ProgressDialog.show(MainActivity.this, "Please Wait...", "Loading...");
+                dbManager = new MyDBManager(MainActivity.this, null, null, 3);
+
                 // get the text entered by user
                 String searchText = searchBox.getText().toString();
+
+                //This statement should only change based off of who the user is.  Implement user switching later
+                postInfo = dbManager.getRows("SELECT bookInfo.tb_isbn, userBookInfo.price, bookInfo.title, bookInfo.author, bookInfo.edition, bookInfo.binding " +
+                        "FROM userBookInfo " +
+                        "INNER JOIN bookInfo " +
+                        "ON userBookInfo.ur_isbn=bookInfo.tb_isbn " +
+                        "WHERE bookInfo.tb_isbn=" + searchText);
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                Fragment newFragment;
-                FragmentTransaction fragmentTransaction;
 
                 if(searchText.contentEquals("data")){
                     // avoid overlap fragment
@@ -145,6 +162,27 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder logout = new AlertDialog.Builder(this);
+        logout.setTitle("Exit App?");
+        logout.setMessage("The app will be closed.").create();
+        logout.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        logout.setPositiveButton("Back", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        logout.show();
     }
 
     // button on the top-right corner
