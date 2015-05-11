@@ -15,7 +15,7 @@
             android:text="No posts found."
             android:gravity="center|top"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="290dp"
+            android:layout_marginBottom="365dp"
             android:textSize="20dp" />
     </FrameLayout>
 </RelativeLayout>
