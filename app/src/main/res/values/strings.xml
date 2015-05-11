@@ -33,6 +33,18 @@
     <string name="edition">&lt;b>Edition: &lt;/b></string>
     <string name="binding">&lt;b>Binding: &lt;/b></string>
 
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="titleDesc">TITLE: </string>
+    <string name="priceDesc">PRICE: $</string>
+    <string name="conditionDesc">CONDITION: </string>
+    <string name="isbnDesc">ISBN: </string>
+    <string name="authorDesc">AUTHOR: </string>
+    <string name="editionDesc">EDITION: </string>
+    <string name="bindingDesc">BINDING: </string>
+    <string name="expDesc">EXPIRES: </string>
+
+
     <string-array name="search_list">
         <item>Select</item>
         <item>ISBN</item>
