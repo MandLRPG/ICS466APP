@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
                 return;
             }
             // Create a new BookSearchFragment
-            BookSearchFragment firstFragment = new BookSearchFragment();
+            StartsUpFragment firstFragment = new StartsUpFragment();
 
             // Add the fragment to the search_fragment FrameLayout
             getSupportFragmentManager().beginTransaction().add(R.id.search_fragment, firstFragment).commit();
