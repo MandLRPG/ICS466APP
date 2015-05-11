@@ -163,15 +163,15 @@
                     android:layout_height="match_parent"
                     android:text="@string/back"
                     android:textSize="23sp"
-                    android:id="@+id/deleteButton"
+                    android:id="@+id/backButton"
                     android:layout_weight="0.5"/>
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="@string/edit"
+                    android:text="@string/delete"
                     android:textSize="23sp"
-                    android:id="@+id/editButton"
+                    android:id="@+id/deleteButton"
                     android:layout_weight="0.5"/>
             </LinearLayout>
 

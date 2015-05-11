@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +15,14 @@ import android.widget.TextView;
 
 public class PageDetailsActivity extends ActionBarActivity {
 
+    MyDBManager dbManager = new MyDBManager(this, null, null, 3);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page_details);
         Bundle b = getIntent().getExtras();
+        final long isbn = Long.parseLong(b.getString("isbn"));
 
         TextView titleText = (TextView) findViewById(R.id.title);
         TextView priceText = (TextView) findViewById(R.id.price);
@@ -29,8 +33,8 @@ public class PageDetailsActivity extends ActionBarActivity {
         TextView bindingText = (TextView) findViewById(R.id.binding);
         TextView expText = (TextView) findViewById(R.id.exp);
 
-        Button edit = (Button) findViewById(R.id.editButton);
-        Button back = (Button) findViewById(R.id.deleteButton);
+        Button delete = (Button) findViewById(R.id.deleteButton);
+        Button back = (Button) findViewById(R.id.backButton);
 
         titleText.setText(b.getString("title"));
         priceText.setText("$" + b.getString("price"));
@@ -41,10 +45,10 @@ public class PageDetailsActivity extends ActionBarActivity {
         bindingText.setText(b.getString("binding"));
         expText.setText(b.getString("expire"));
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showConfirmation(v, isbn);
             }
         });
 
@@ -58,6 +62,30 @@ public class PageDetailsActivity extends ActionBarActivity {
         });
 
 
+    }
+
+    public void showConfirmation(View view, final long isbn) {
+        AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+        confirm.setTitle("DELETE POSTING?");
+        confirm.setMessage("The posting will be permanently deleted!  Are you sure?").create();
+
+        confirm.setNegativeButton("DELETE!!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dbManager.deleteUserTextBook(isbn, MainActivity.userName);
+                Intent accountPage = new Intent(getApplicationContext(), AccountPageActivity.class);
+                startActivity(accountPage);
+                finish();
+            }
+        });
+
+        confirm.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do nothing
+            }
+        });
+        confirm.show();
     }
 
     @Override
