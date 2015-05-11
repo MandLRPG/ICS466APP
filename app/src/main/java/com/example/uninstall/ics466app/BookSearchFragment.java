@@ -25,7 +25,7 @@ public class BookSearchFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(args != null) {
             userBookInfo = this.getArguments().getStringArrayList("array");
-            int numPostings = userBookInfo.size()/6;
+            numPostings = userBookInfo.size()/6;
         }
 
         View view = inflater.inflate(R.layout.book_search_fragment, container, false);
