@@ -27,11 +27,11 @@
     <string name="cancel">Cancel</string>
     <string name="create_post">Create Post</string>
 
-    <string name="price">&lt;b>Posting Price: $&lt;/b></string>
-    <string name="title">&lt;b>Title: &lt;/b></string>
-    <string name="author">&lt;b>Author(s): &lt;/b></string>
-    <string name="edition">&lt;b>Edition: &lt;/b></string>
-    <string name="binding">&lt;b>Binding: &lt;/b></string>
+    <string name="price">&lt;br/>&lt;br/>&lt;br/>&lt;b>Posting Price: &lt;/b></string>
+    <string name="title">&lt;br/>&lt;br/>&lt;b>Title: &lt;/b></string>
+    <string name="author">&lt;br/>&lt;br/>&lt;b>Author(s): &lt;/b></string>
+    <string name="edition">&lt;br/>&lt;br/>&lt;b>Edition: &lt;/b></string>
+    <string name="binding">&lt;br/>&lt;br/>&lt;b>Binding: &lt;/b></string>
 
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>

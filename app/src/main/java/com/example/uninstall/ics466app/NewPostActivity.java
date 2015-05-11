@@ -194,12 +194,12 @@ public class NewPostActivity extends ActionBarActivity implements View.OnKeyList
     public void showConfirmation(View view, String[] bookInfo, String price) {
         AlertDialog.Builder confirm = new AlertDialog.Builder(this);
         confirm.setTitle("Create Posting?");
-        confirm.setMessage("Create the following posting?\n\n\n" +
-                Html.fromHtml(getString(R.string.price)) + price + "\n\n" +
-                Html.fromHtml(getString(R.string.title)) + bookInfo[0] + "\n\n" +
-                Html.fromHtml(getString(R.string.author)) + bookInfo[1] + "\n\n" +
-                Html.fromHtml(getString(R.string.edition)) + bookInfo[2] + "\n\n" +
-                Html.fromHtml(getString(R.string.binding)) + bookInfo[3]).create();
+        confirm.setMessage(Html.fromHtml("Create the following posting?" +
+                getString(R.string.price) + price +
+                getString(R.string.title) + bookInfo[0] +
+                getString(R.string.author) + bookInfo[1] +
+                getString(R.string.edition) + bookInfo[2] +
+                getString(R.string.binding) + bookInfo[3])).create();
 
         confirm.setNegativeButton("Post!!", new DialogInterface.OnClickListener() {
             @Override
