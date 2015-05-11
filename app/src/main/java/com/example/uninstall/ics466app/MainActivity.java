@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         MyDBManager db = new MyDBManager(this, null, null, 2);
-        if(!db.getUserInfo(userName)) {
+        if(!db.userExists(userName)) {
             db.addUserInfo(userName);
         }
 
