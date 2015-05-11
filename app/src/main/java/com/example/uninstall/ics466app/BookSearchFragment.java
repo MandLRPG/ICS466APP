@@ -27,7 +27,6 @@ public class BookSearchFragment extends Fragment{
 
         if(args != null) {
             userBookInfo = args.getStringArrayList("array");
-            System.out.println(userBookInfo.get(2));
             numPostings = userBookInfo.size()/6;
         }
 
